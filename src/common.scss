@@ -7,3 +7,28 @@ $gray3:#6b6b6b;
 $gray4:#9b9b9b;
 $gray5:#c4c4c4;
 $gray6:#e3e3e3;
+
+
+h1{
+    color:$gray2;
+    position:relative;
+    width:fit-content;
+    &:before{
+        position:absolute;
+        content:"";
+        height:3px;
+        left:0;
+        background-color:$color1;
+        width:50%;
+        bottom:-20px;
+    }
+    &:after{
+        position:absolute;
+        left:0;
+        content:"";
+        height:2px;
+        background-color:$color1;
+        width:80%;
+        bottom:-10px;
+    }
+}
