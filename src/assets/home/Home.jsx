@@ -1,14 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
 import "./home.scss"
 import { ReactComponent as IconLogo } from "../svg/logo_white.svg"
+import { todaySales } from '../data'
 
 function Home() {
 
     const [slideClassName, setSlideClassName] = useState("iconLogo")
     const [text,setText]=useState("Best Pizza")
+    const [showMenu,setShowMenu]=useState(false)
+
+
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
 
     const textTag = useRef()
+    const section = useRef()
 
     useEffect(()=>{
         let texts
@@ -22,13 +27,23 @@ function Home() {
     const displayTexts =document.querySelectorAll(".eachText")
     let timing=0
     displayTexts.forEach((displayText)=>{
-        console.log(displayText)
         displayText.style.transitionDelay=`${timing}s`
         displayText.classList.add("active")
         timing+=0.1
-
     })
 
+    
+    const showSection =(target)=>{
+        const elementPosition = target.current.getBoundingClientRect().top
+        const browserHeight = window.innerHeight
+        if(browserHeight-elementPosition > 0){
+            target.current.classList.add("showSection")
+        }
+    }
+    window.onscroll=()=>{
+        showSection(section)
+
+    }
 
     return (
         <div className='home'>
@@ -53,10 +68,25 @@ function Home() {
                         </div>
                     </div>
                 </section>
-                <section className='sale'>
+                <section ref={section}  className='sale hideSection'>
                     <div className="container">
-                    <h1>Today's SALE</h1>
-                    .
+                    <h1 >Today's SALE</h1>
+                        <div className="saleScreen">
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                            <p>test</p>
+                        </div>
                     </div>
                 </section>
             </div>

@@ -113,6 +113,21 @@
             padding:30px 30px;
         }
     }
+    .hideSection{
+        transition: all .5s;
+        opacity:0;
+        transition-delay: .5s;
+        transform:translateY(100px);
+        max-height:1px;
+        overflow:hidden;
+    }
+    .showSection{
+        display:block;
+        opacity:1;
+        transform:translateY(0);
+        max-height:100%;
+
+    }
 
 }
 
