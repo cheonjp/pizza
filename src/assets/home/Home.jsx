@@ -8,13 +8,15 @@ function Home() {
 
     const [slideClassName, setSlideClassName] = useState("iconLogo")
     const [text, setText] = useState("Best Pizza")
-    const [showMenu, setShowMenu] = useState(false)
+    const [menuAni,setMenuAni]= useState(false)
+    const [arrangeData,setArrangeData]=useState([])
 
 
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
 
     const textTag = useRef()
     const section = useRef()
+    const saleAniTarget = useRef()
 
     useEffect(() => {
         let texts
@@ -39,13 +41,46 @@ function Home() {
         const browserHeight = window.innerHeight
         if (browserHeight - elementPosition > 0) {
             target.current.classList.add("showSection")
+            setMenuAni(true)
         }
     }
+   
+ 
+   
     window.onscroll = () => {
         showSection(section)
+        
+    }
+    useEffect(()=>{
+        let timing =1000
+        setToday()
+        if(menuAni){
+            const items = document.querySelectorAll(".showSection .left .item")
+            items.forEach((item)=>{
+                console.log('tset')
+                timing+=100
+                setTimeout(()=>{
+                    item.classList.add("activeAni")
+                },timing)
+            })
+        }
+    },[menuAni])
 
+
+    let array=[]
+    const setToday = ()=>{
+        let i = new Date().getDay()
+        todaySales.forEach(each=>{
+            if(i>6){
+                i=i-7
+            }
+            array.push(todaySales[i])
+            i++
+        })
+         setArrangeData(array)
     }
 
+    
     return (
         <div className='home'>
             <div className="container">
@@ -74,12 +109,12 @@ function Home() {
                         <h1 >Today's SALE</h1>
                         <div className="saleScreen">
                             <div className="left">
-                                {todaySales.map(sale => {
+                                {arrangeData.map((data,i) => {
                                     return (
                                         <>
-                                        <div className='item'>
-                                            <h2>{sale.day}</h2>
-                                            <img src={`public/img/${sale.img}`} alt="" />
+                                        <div className="item">
+                                            <h2>{i===0 ? "Today":data.day}</h2>
+                                            <img src={`public/img/${data.img}`} alt="" />
                                         </div>
                     
                                         </>
