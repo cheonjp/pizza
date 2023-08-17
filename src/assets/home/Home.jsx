@@ -8,8 +8,8 @@ function Home() {
 
     const [slideClassName, setSlideClassName] = useState("iconLogo")
     const [text, setText] = useState("Best Pizza")
-    const [menuAni,setMenuAni]= useState(false)
-    const [arrangeData,setArrangeData]=useState([])
+    const [menuAni, setMenuAni] = useState(false)
+    const [arrangeData, setArrangeData] = useState([])
 
 
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
@@ -25,15 +25,21 @@ function Home() {
         texts.forEach(eachText => {
             entireText += `<span class="eachText">${eachText}</span>`
             textTag.current.innerHTML = entireText
+
         })
+        setTimeout(()=>{
+            textAnimation()
+        },100)
     }, [])
-    const displayTexts = document.querySelectorAll(".eachText")
-    let timing = 0
-    displayTexts.forEach((displayText) => {
-        displayText.style.transitionDelay = `${timing}s`
-        displayText.classList.add("active")
-        timing += 0.1
-    })
+    const textAnimation = ()=>{
+        const displayTexts = document.querySelectorAll(".eachText")
+        let timing = 1
+        displayTexts.forEach((displayText) => {
+            displayText.style.transitionDelay = `${timing}s`
+            displayText.classList.add("active")
+            timing += 0.1
+        })
+    }
 
 
     const showSection = (target) => {
@@ -44,43 +50,42 @@ function Home() {
             setMenuAni(true)
         }
     }
-   
- 
-   
+
+
+
     window.onscroll = () => {
         showSection(section)
-        
+
     }
-    useEffect(()=>{
-        let timing =1000
+    useEffect(() => {
+        let timing = 1000
         setToday()
-        if(menuAni){
+        if (menuAni) {
             const items = document.querySelectorAll(".showSection .left .item")
-            items.forEach((item)=>{
-                console.log('tset')
-                timing+=100
-                setTimeout(()=>{
+            items.forEach((item) => {
+                timing += 100
+                setTimeout(() => {
                     item.classList.add("activeAni")
-                },timing)
+                }, timing)
             })
         }
-    },[menuAni])
+    }, [menuAni])
 
 
-    let array=[]
-    const setToday = ()=>{
+    let array = []
+    const setToday = () => {
         let i = new Date().getDay()
-        todaySales.forEach(each=>{
-            if(i>6){
-                i=i-7
+        todaySales.forEach(each => {
+            if (i > 6) {
+                i = i - 7
             }
             array.push(todaySales[i])
             i++
         })
-         setArrangeData(array)
+        setArrangeData(array)
     }
 
-    
+
     return (
         <div className='home'>
             <div className="container">
@@ -109,14 +114,14 @@ function Home() {
                         <h1 >Today's SALE</h1>
                         <div className="saleScreen">
                             <div className="left">
-                                {arrangeData.map((data,i) => {
+                                {arrangeData.map((data, i) => {
                                     return (
                                         <>
-                                        <div className="item">
-                                            <h2>{i===0 ? "Today":data.day}</h2>
-                                            <img src={`public/img/${data.img}`} alt="" />
-                                        </div>
-                    
+                                            <div className="item">
+                                                <h2>{i === 0 ? "Today" : data.day}</h2>
+                                                <img src={`public/img/${data.img}`} alt="" />
+                                            </div>
+
                                         </>
 
                                     )
@@ -124,17 +129,21 @@ function Home() {
                             </div>
                             <div className="right">
                                 <div className="container">
-                                    <h2>Unlimited Pizza</h2>
-                                    <h3>Pizza Menu</h3>
-                                    <p className='desc'>Pepperoni, Ham, Beef, Mushrooms, Onions, Green Peppers, Olives, and Italian Sausage.</p>
-                                    <p className='size'>Size: 16 inch</p>
-                                    <div className="priceAndButtonBox">
-                                        <div className="priceBox">
-                                            <span className="price">$30</span>
-                                            <span className="originalPrice">$35</span>
-                                        </div>
-                                        <button className='arrowIconBtn'><BsArrowRight />Order</button>
-                                    </div>
+                                    {arrangeData.length !==0 && (
+                                        <>
+                                            <h2>{arrangeData[0].item}</h2>
+                                            <h3>{arrangeData[0].menu}</h3>
+                                            <p className='desc'>{arrangeData[0].desc}</p>
+                                            {arrangeData[0].size && <p className='size'>Size: 16 inch</p>}
+                                            <div className="priceAndButtonBox">
+                                                <div className="priceBox">
+                                                    <span className="price">${arrangeData[0].discount}</span>
+                                                    <span className="originalPrice">${arrangeData[0].price}</span>
+                                                </div>
+                                                <button className='arrowIconBtn'><BsArrowRight />Order</button>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
