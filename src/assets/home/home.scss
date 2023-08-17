@@ -46,9 +46,11 @@
             flex:1;
             display:flex;
             flex-direction: column;
+       
             .textContainer{
                 width:fit-content;
                 align-self: flex-end;
+            
             }
             p{
                 font-size:3rem;
@@ -118,7 +120,6 @@
         opacity:0;
         transition-delay: .5s;
         transform:translateY(100px);
-        max-height:1px;
         overflow:hidden;
     }
     .showSection{
@@ -127,6 +128,156 @@
         transform:translateY(0);
         max-height:100%;
 
+    }
+    .sale{
+        height:800px;
+        &>.container{
+            margin:auto;
+            .saleScreen{
+                display:flex;
+                .left{
+                    flex:1;
+                    position:relative;
+                    .item{
+                        position:absolute;
+                        top:200px;
+                        left:0;
+                        text-align: center;
+                        z-index:7;
+                        
+                        &:nth-child(2){
+                            
+                            top:0px !important;
+                            left:200px !important;
+                            z-index:6;
+                            transform:scale(0.5,0.5) rotateX(10deg);
+                        }
+                        &:nth-child(3){
+                            
+                            top:-100px !important;
+                            left:350px !important;
+                            z-index:5;
+                            transform:scale(0.4,0.4) rotateX(20deg);
+                        }
+                        &:nth-child(4){
+                            
+                            top:-150px !important;
+                            left:455px !important;
+                            z-index:5;
+                            transform:scale(0.35,0.35) rotateX(25deg);
+                        }
+                        &:nth-child(5){
+                            
+                            top:-180px !important;
+                            left:560px !important;
+                            z-index:6;
+                            transform:scale(0.3,0.3) rotateX(28deg);
+                        }
+                        &:nth-child(6){
+                            
+                            top:-205px !important;
+                            left:640px !important;
+                            z-index:7;
+                            transform:scale(0.27,0.27) rotateX(30deg);
+                        }
+                        &:nth-child(7){
+                            
+                            top:-215px !important;
+                            left:705px !important;
+                            z-index:6;
+                            transform:scale(0.25,0.25) rotateX(32deg);
+                        }
+                        img{
+                            width:45vw;
+                            max-width:400px;
+                            height:45vh;
+                            max-height: 700px;
+                            object-fit: contain;
+                        }
+                        &:first-child{
+                        }
+                    }
+                }
+                .right{
+                    flex:1;
+                    position:relative;
+                    .container{
+                        position:absolute;
+                        top:150px;
+                        right:0px;
+                        max-width:450px;
+                    }
+                    h2{
+                        color:$color2;
+                        font-size:3.5rem;
+                        margin-bottom:10px;
+                        font-family: $secfont;
+                        font-weight: 400;
+                    }
+                    h3{
+                        font-weight: 400;
+                        font-size: 1.3rem;
+                        color:$gray2;
+
+                    }
+                    .desc{
+                        font-size:1.1rem;
+                        color:$gray4;
+                    }
+                    .size{
+                        color:$gray3;
+                    }
+                    .price{
+                        color:$color1;
+                        font-size: 3.5rem;
+                        text-shadow: 10px 10px 5px $gray5;
+                    }
+                    .originalPrice{
+                        color:$gray5;
+                        font-size: 1.5rem;
+                        text-decoration: line-through;
+                    }
+                    .priceAndButtonBox{
+                        display:flex;
+                        gap:80px;
+                        align-items: center;
+                        margin-top: 30px;
+                        .priceBox{
+                            display:flex;
+                            align-items: center;
+                            gap:40px;
+                        }
+                        .arrowIconBtn{
+                            background-color:white;
+                            display:flex;
+                            align-items: center;
+                            padding: 10px 20px;
+                            gap:10px;
+                            outline:none;
+                            border: 1px solid $color1;
+                            color:$color1;
+                            cursor: pointer;
+                            svg{
+                                font-size: 17px;
+                            }
+                            &:hover svg{
+                                animation: btnAni .5s ease-in alternate infinite;
+                            }
+                            @keyframes btnAni {
+                                from{
+                                    transform:translateX(0px);
+                                }                                
+                                to{
+                                    transform:translateX(-30px);
+                                }                                
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
     }
 
 }

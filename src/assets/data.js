@@ -3,7 +3,7 @@ export const todaySales =[
         day:"Sunday",
         item:"Unlimited Pizza",
         menu: "Pizza",
-        img:"hero_pizza.png",
+        img:"pizza.png",
         desc:"Pepperoni, Ham, Beef, Mushrooms, Onions, Green Peppers, Olives, and Italian Sausage",
         discount:"30",
         price:"35"
@@ -37,12 +37,12 @@ export const todaySales =[
 },
     {
         day:"Thursday",
-        item:"Peperoni Potato",
-        menu: "Pizza and Potato",
-        img:"Peperoni Potato",
-        desc:"Mozzarella Cheese, Peperoni, Pepper and Fried Potato",
-        discount:"34",
-        price:"40"
+        item:"Mushroom Pasta",
+        menu: "Pasta",
+        img:"mushroom_pasta.png",
+        desc:"Mushroom, Chicken and Tomato Source",
+        discount:"20",
+        price:"15"
 },
     {
         day:"Friday",
