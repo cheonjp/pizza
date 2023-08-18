@@ -11,7 +11,7 @@ export const todaySales =[
 },
     {
         day:"Monday",
-        item:"Cheese_lover",
+        item:"Cheese Lover",
         menu: "Pizza",
         size:"16 inch",
         img:"cheese_lover.png",

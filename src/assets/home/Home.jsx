@@ -10,13 +10,13 @@ function Home() {
     const [text, setText] = useState("Best Pizza")
     const [menuAni, setMenuAni] = useState(false)
     const [arrangeData, setArrangeData] = useState([])
+    const [saleMenuTarget,setSaleMenuTarget]=useState(0)
 
 
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
 
     const textTag = useRef()
     const section = useRef()
-    const saleAniTarget = useRef()
 
     useEffect(() => {
         let texts
@@ -62,10 +62,10 @@ function Home() {
         setToday()
         if (menuAni) {
             const items = document.querySelectorAll(".showSection .left .item")
-            items.forEach((item) => {
+            items.forEach((item,i) => {
                 timing += 100
                 setTimeout(() => {
-                    item.classList.add("activeAni")
+                    item.classList.add(`activeAni-${i}`)
                 }, timing)
             })
         }
@@ -85,6 +85,23 @@ function Home() {
         setArrangeData(array)
     }
 
+    const showMenuDetail =(e)=>{
+        const item = e.target.closest('.item')
+        const itemIndex = item.dataset.index
+        setSaleMenuTarget(itemIndex)
+        let num
+        array = []
+        arrangeData.forEach((data,i)=>{
+            const targetItem = document.getElementsByClassName("item")[i]
+            num = i-itemIndex
+            if(num < 0){
+                num = arrangeData.length+num
+            }
+           
+            targetItem.className=`item activeAni-${num}`
+            
+        })
+    }
 
     return (
         <div className='home'>
@@ -117,7 +134,7 @@ function Home() {
                                 {arrangeData.map((data, i) => {
                                     return (
                                         <>
-                                            <div className="item">
+                                            <div className="item" onClick={showMenuDetail} data-index={i}>
                                                 <h2>{i === 0 ? "Today" : data.day}</h2>
                                                 <img src={`public/img/${data.img}`} alt="" />
                                             </div>
@@ -131,16 +148,16 @@ function Home() {
                                 <div className="container">
                                     {arrangeData.length !==0 && (
                                         <>
-                                            <h2>{arrangeData[0].item}</h2>
-                                            <h3>{arrangeData[0].menu}</h3>
-                                            <p className='desc'>{arrangeData[0].desc}</p>
-                                            {arrangeData[0].size && <p className='size'>Size: 16 inch</p>}
+                                            <h2>{arrangeData[saleMenuTarget].item}</h2>
+                                            <h3>{arrangeData[saleMenuTarget].menu}</h3>
+                                            <p className='desc'>{arrangeData[saleMenuTarget].desc}</p>
+                                            {arrangeData[saleMenuTarget].size && <p className='size'>Size: 16 inch</p>}
                                             <div className="priceAndButtonBox">
                                                 <div className="priceBox">
-                                                    <span className="price">${arrangeData[0].discount}</span>
-                                                    <span className="originalPrice">${arrangeData[0].price}</span>
+                                                    <span className="price">${arrangeData[saleMenuTarget].discount}</span>
+                                                    <span className="originalPrice">${arrangeData[saleMenuTarget].price}</span>
                                                 </div>
-                                                <button className='arrowIconBtn'><BsArrowRight />Order</button>
+                                                <button className='arrowIconBtn' disabled={saleMenuTarget===String(0) ? false : true}><BsArrowRight />Order</button>
                                             </div>
                                         </>
                                     )}
