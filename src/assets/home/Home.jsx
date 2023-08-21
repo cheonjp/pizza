@@ -3,6 +3,7 @@ import "./home.scss"
 import { ReactComponent as IconLogo } from "../svg/logo_white.svg"
 import { BsArrowRight } from "react-icons/bs"
 import { todaySales } from '../data'
+import Intro from '../components/intro/Intro'
 
 function Home() {
 
@@ -17,6 +18,7 @@ function Home() {
 
     const textTag = useRef()
     const section = useRef()
+    const introSection = useRef()
 
     useEffect(() => {
         let texts
@@ -55,6 +57,7 @@ function Home() {
 
     window.onscroll = () => {
         showSection(section)
+        showSection(introSection)
 
     }
     useEffect(() => {
@@ -136,7 +139,7 @@ function Home() {
                                         <>
                                             <div className="item" onClick={showMenuDetail} data-index={i}>
                                                 <h2>{i === 0 ? "Today" : data.day}</h2>
-                                                <img src={`public/img/${data.img}`} alt="" />
+                                                <img src={`/img/${data.img}`} alt="" />
                                             </div>
 
                                         </>
@@ -157,13 +160,22 @@ function Home() {
                                                     <span className="price">${arrangeData[saleMenuTarget].discount}</span>
                                                     <span className="originalPrice">${arrangeData[saleMenuTarget].price}</span>
                                                 </div>
-                                                <button className='arrowIconBtn' disabled={saleMenuTarget===String(0) ? false : true}><BsArrowRight />Order</button>
+                                                <button className='arrowIconBtn' disabled={saleMenuTarget==0 ? false : true}><BsArrowRight />Order</button>
+                                                {console.log(saleMenuTarget)}
                                             </div>
                                         </>
                                     )}
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
+                <section className='introduction hideSection' ref={introSection}>
+                    <div className="container">
+                        <h1>Restaurant</h1>
+                        <Intro title={"FRESH"} image={"fresh.jpg"} text={"MONSTER PIZZA is the best restaurant award since 1988. The reason it all the best is all about Fresh ingredients that food special managers check it as if they care of their children. it gets the restaurant clean, fresh, and making customer visiting again."}/>
+                        <Intro title={"CHEF"} image={"chef.jpg"} text={"to lead his own kitchen, Gus was the opening chef of Perch, a 300 seat restaurant with a focus on using seasonal and local ingredients. Shortly before the opening of Perch, Gus returned to Germany to complete stages at Michelin Starred Restaurants. After Perch closed, Gus spent a summer at restaurant Noma in Copenhagen, an experience that further shaped his food philosophies and broadened his knowledge."}/>
+                        <Intro title={"HISTORIC"} image={"historic.jpg"} text={"The Monster Pizza has been proudly serving deliciously affordable 3 course meals since 1969. Family owned and operated, we’re committed to exceptional service. We invite your family to join ours for a memorable dining experience."}/>
                     </div>
                 </section>
             </div>

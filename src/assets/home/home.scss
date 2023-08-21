@@ -1,5 +1,7 @@
 @import "../../common.scss";
 
+
+
 .home{
     .heroSection{
         width:100%;
@@ -62,15 +64,9 @@
                     font-family: $secfont;
                     margin-left:3px;
                 }
-                &:first-child{
-                    // border-bottom: 3px solid $color1;
-                }
                 &:last-child{
                     margin:0;
                 }
-            }
-            .top{
-                // visibility: hidden;
             }
             .eachText{
                 transform:translateX(-100px);
@@ -306,6 +302,22 @@
             }
         }
     }
-
+    .introduction{
+        background-color: $color2;
+        h1{
+            color:white;
+        }
+    }
+    .introduction{
+        .container{
+            max-width: 1400px;
+            padding:30px 0 100px 0;
+            margin:auto;
+            h1{
+                margin-bottom:100px;
+            }
+        }
+        
+    }
 }
 

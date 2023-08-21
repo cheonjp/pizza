@@ -1,0 +1,73 @@
+@import "../../../common.scss";
+
+
+.intro{
+    display:flex;
+    position:relative;
+    flex-wrap: nowrap;
+
+    h2{
+        text-align: center;
+        position: absolute;
+        top:20px;
+        left:50%;
+        transform:translateX(-50%);
+        font-size: 2rem;
+        font-family: $secfont;
+        color:$color1;
+        font-weight: 300;
+        letter-spacing: 20px;
+        padding-left:50px;
+        border-bottom: 1px solid $color1;
+        z-index:1;
+    }
+    .image{
+        width:100%;
+        height:450px;
+        background-color: #fff;
+        position:relative;
+        &:after{
+            content:"";
+            position:absolute;
+            height:100%;
+            width:100vw;
+            max-width:960px;
+            background-color: white;
+            top:0;
+            right:0;
+            background-image: url("/img/fresh.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position-y: 100%;
+            filter:brightness(0.9);
+        }
+    }
+    .chef:after{
+        background-image: url("/img/chef.jpg");
+
+    }
+    .historic:after{
+        background-image: url("/img/historic.jpg");
+
+    }
+
+    .left{
+        flex:1;
+    }
+    .right{
+        flex:1;
+        display:flex;
+        align-items: center;
+        p{
+            color:white;
+            line-height: 40px;
+            padding:0 50px 0 50px;
+        }
+    }
+    &:nth-child(3){
+        flex-direction: row-reverse;
+        .image:after{
+            left:0 !important;
+        }
+    }
+}

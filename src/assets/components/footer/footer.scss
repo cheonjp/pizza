@@ -1,0 +1,51 @@
+@import "../../../common.scss";
+
+.footer{
+    background-color: #D4AE8D;
+    .container{
+        width:100%;
+        max-width: 1400px;
+        padding:10px 30px;
+        margin:auto;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .center{
+        color:$color2;
+        font-size: 18px;
+    }
+    .left{
+        svg{
+            width:120px;
+        }
+    }
+    .right{
+        display:flex;
+        gap:10px;
+    }
+    .iconContainer{
+        display:inline-block;
+        border-radius: 50px;
+        background-color:$color2;
+        width:45px;
+        height:45px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        color:white;
+        cursor: pointer;
+        transition: all 1s;
+        &:hover{
+            transform:rotateX(360deg);
+            background-color: white;
+            border: 1px solid $color2;
+            svg{
+                color:$color2;
+            }
+        }
+        svg{
+            font-size: 20px;
+        }
+    }
+}
