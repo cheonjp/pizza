@@ -4,6 +4,8 @@ import { ReactComponent as IconLogo } from "../svg/logo_white.svg"
 import { BsArrowRight } from "react-icons/bs"
 import { todaySales } from '../data'
 import Intro from '../components/intro/Intro'
+import axios from "axios"
+import instance from '../../axios'
 
 function Home() {
 
@@ -12,6 +14,7 @@ function Home() {
     const [menuAni, setMenuAni] = useState(false)
     const [arrangeData, setArrangeData] = useState([])
     const [saleMenuTarget,setSaleMenuTarget]=useState(0)
+    const [allMenu,setAllMenu]=useState(null)
 
 
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
@@ -42,6 +45,18 @@ function Home() {
             timing += 0.1
         })
     }
+
+    useEffect(()=>{
+        const getMenus = async () =>{
+            try {
+                const res = await instance.get("/menu/get_all")
+                setAllMenu(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getMenus()
+    },[])
 
 
     const showSection = (target) => {
@@ -78,14 +93,17 @@ function Home() {
     let array = []
     const setToday = () => {
         let i = new Date().getDay()
-        todaySales.forEach(each => {
-            if (i > 6) {
-                i = i - 7
-            }
-            array.push(todaySales[i])
-            i++
-        })
-        setArrangeData(array)
+        if(allMenu){
+            allMenu.forEach(each => {
+                
+                if (i > 6) {
+                    i = i - 7
+                }
+                array.push(allMenu[i])
+                i++
+            })
+            setAllMenu(array)
+        }
     }
 
     const showMenuDetail =(e)=>{
@@ -94,11 +112,11 @@ function Home() {
         setSaleMenuTarget(itemIndex)
         let num
         array = []
-        arrangeData.forEach((data,i)=>{
+        allMenu.forEach((data,i)=>{
             const targetItem = document.getElementsByClassName("item")[i]
             num = i-itemIndex
             if(num < 0){
-                num = arrangeData.length+num
+                num = allMenu.length+num
             }
            
             targetItem.className=`item activeAni-${num}`
@@ -134,12 +152,12 @@ function Home() {
                         <h1 >Today's SALE</h1>
                         <div className="saleScreen">
                             <div className="left">
-                                {arrangeData.map((data, i) => {
+                                {allMenu && allMenu.map((data, i) => {
                                     return (
                                         <>
                                             <div className="item" onClick={showMenuDetail} data-index={i}>
                                                 <h2>{i === 0 ? "Today" : data.day}</h2>
-                                                <img src={`/img/${data.img}`} alt="" />
+                                                <img src={data.img} alt={data.name} />
                                             </div>
 
                                         </>
@@ -149,19 +167,19 @@ function Home() {
                             </div>
                             <div className="right">
                                 <div className="container">
-                                    {arrangeData.length !==0 && (
+                                    {allMenu && (
                                         <>
-                                            <h2>{arrangeData[saleMenuTarget].item}</h2>
-                                            <h3>{arrangeData[saleMenuTarget].menu}</h3>
-                                            <p className='desc'>{arrangeData[saleMenuTarget].desc}</p>
-                                            {arrangeData[saleMenuTarget].size && <p className='size'>Size: 16 inch</p>}
+                                            <h2>{allMenu[saleMenuTarget].name}</h2>
+                                            <h3>{allMenu[saleMenuTarget].menu}</h3>
+                                            <p className='desc'>{allMenu[saleMenuTarget].desc}</p>
+                                            {allMenu[saleMenuTarget].size && <p className='size'>Size: 16 inch</p>}
                                             <div className="priceAndButtonBox">
                                                 <div className="priceBox">
-                                                    <span className="price">${arrangeData[saleMenuTarget].discount}</span>
-                                                    <span className="originalPrice">${arrangeData[saleMenuTarget].price}</span>
+                                                    <span className="price">${allMenu[saleMenuTarget].salePrice}</span>
+                                                    <span className="originalPrice">${allMenu[saleMenuTarget].price[2] ? allMenu[saleMenuTarget].price[2] : allMenu[saleMenuTarget].price}</span>
                                                 </div>
-                                                <button className='arrowIconBtn' disabled={saleMenuTarget==0 ? false : true}><BsArrowRight />Order</button>
-                                                {console.log(saleMenuTarget)}
+                                                <button className='arrowIconBtn' disabled={allMenu==0 ? false : true}><BsArrowRight />Order</button>
+                                                {console.log(allMenu)}
                                             </div>
                                         </>
                                     )}
