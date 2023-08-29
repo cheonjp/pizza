@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import "./home.scss"
-import { ReactComponent as IconLogo } from "../svg/logo_white.svg"
+import { ReactComponent as IconLogo } from "../../svg/logo_white.svg"
 import { BsArrowRight } from "react-icons/bs"
-import { todaySales } from '../data'
-import Intro from '../components/intro/Intro'
-import axios from "axios"
-import instance from '../../axios'
+import Intro from '../../components/intro/Intro'
+import instance from '../../../axios'
+
+
 
 function Home() {
 
     const [slideClassName, setSlideClassName] = useState("iconLogo")
     const [text, setText] = useState("Best Pizza")
     const [menuAni, setMenuAni] = useState(false)
-    const [arrangeData, setArrangeData] = useState([])
+    const [arrangeData, setArrangeData] = useState(false)
     const [saleMenuTarget,setSaleMenuTarget]=useState(0)
     const [allMenu,setAllMenu]=useState(null)
 
@@ -49,7 +49,7 @@ function Home() {
     useEffect(()=>{
         const getMenus = async () =>{
             try {
-                const res = await instance.get("/menu/get_all")
+                const res = await instance.get("api/menu/get_all")
                 setAllMenu(res.data)
             } catch (error) {
                 console.log(error)
@@ -69,11 +69,9 @@ function Home() {
     }
 
 
-
     window.onscroll = () => {
         showSection(section)
         showSection(introSection)
-
     }
     useEffect(() => {
         let timing = 1000
@@ -103,6 +101,7 @@ function Home() {
                 i++
             })
             setAllMenu(array)
+            setArrangeData(true)
         }
     }
 
@@ -167,8 +166,8 @@ function Home() {
                             </div>
                             <div className="right">
                                 <div className="container">
-                                    {allMenu && (
-                                        <>
+                                    {arrangeData  && (
+                                    <>
                                             <h2>{allMenu[saleMenuTarget].name}</h2>
                                             <h3>{allMenu[saleMenuTarget].menu}</h3>
                                             <p className='desc'>{allMenu[saleMenuTarget].desc}</p>
@@ -178,8 +177,7 @@ function Home() {
                                                     <span className="price">${allMenu[saleMenuTarget].salePrice}</span>
                                                     <span className="originalPrice">${allMenu[saleMenuTarget].price[2] ? allMenu[saleMenuTarget].price[2] : allMenu[saleMenuTarget].price}</span>
                                                 </div>
-                                                <button className='arrowIconBtn' disabled={allMenu==0 ? false : true}><BsArrowRight />Order</button>
-                                                {console.log(allMenu)}
+                                                <button className='arrowIconBtn' disabled={saleMenuTarget==0 ? false : true}><BsArrowRight />Order</button>
                                             </div>
                                         </>
                                     )}

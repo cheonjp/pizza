@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import "./header.scss"
 import { ReactComponent as IconLogo } from "../../svg/logo.svg"
 import { Link } from 'react-router-dom'
-
+import instance from '../../../axios'
 import { CgProfile } from "react-icons/cg"
+import { PiShoppingCartLight } from "react-icons/pi"
 import { BiRegistered } from "react-icons/bi"
+
 
 function Header() {
 
@@ -38,8 +40,17 @@ function Header() {
                     <Link to="/">LOCATION</Link>
                 </div>
                 <div className="right">
-                    <div className="icon first"><CgProfile />Log in</div>
-                    <div className="icon"><BiRegistered />Sign up</div>
+                    <Link to="/login">
+                        <div className="login">Login</div>
+                    </Link>
+                    <div className="profileImage">
+                        <img src={instance.defaults.baseURL + "/images/profile/no_profile.png"} alt="" />
+                    </div>
+                    <div className="cart">
+                        <div className="itemAlert">4</div>
+                        <PiShoppingCartLight />
+                    </div>
+
                 </div>
             </div>
 
