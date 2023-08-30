@@ -19,6 +19,10 @@
             width:100%;
             max-width:300px;
             flex-direction: column;
+            &>a{
+                align-self: center;
+                margin-bottom: 30px;
+            }
         }
         form{
             display:flex;
@@ -41,10 +45,7 @@
             font-weight: bold;
         }
     }
-    svg{
-        align-self: center;
-        margin-bottom: 30px;
-    }
+    
     .right{
         height:100vh;
         img{
