@@ -5,12 +5,12 @@ import { Link, useNavigate, useNavigation } from 'react-router-dom'
 import instance from '../../../axios'
 import Input from '../../components/input/Input'
 import SubmitBtn from '../../components/submitBtn/SubmitBtn'
+import SubmitSuccess from '../../components/submitSuccess/SubmitSuccess'
 
 function Register() {
 
     const [sameEmail, setSameEmail] = useState(false)
-    const [data,setData]=useState(null)
-    const [loading,setLoading]=useState(null)
+    const [succeed,setSucceed]=useState(false)
 
     const submitBtn = useRef()
 
@@ -123,9 +123,9 @@ function Register() {
         submitBtn.current.classList.add("spinner")
         try {
             const res = await instance.post("/api/user/register", values)
-            setData(res.data)
             res.data && submitBtn.current.classList.remove("spinner")
-            
+            res.data && setSucceed(true)
+            res.data && setTimeout(()=>{navigation("/login")},4000)
 
         } catch (error) {
             if (error.response.status === 401) {
@@ -168,6 +168,7 @@ function Register() {
                         </div>
                     </form>
                 </div>
+                {succeed && <SubmitSuccess text={"Welcome to Monster Pizza."}/>}
             </div>
             <div className="right">
                 <img src="/public/img/register.jpg" alt="" />

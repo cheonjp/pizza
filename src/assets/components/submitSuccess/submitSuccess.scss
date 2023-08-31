@@ -1,0 +1,41 @@
+@import "../../../common.scss";
+
+.submitSuccess{
+    position:absolute;
+    top:60%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: $color2;
+    min-height: 200px;
+    min-width:300px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    flex-direction: column;
+    opacity:0%;
+    transition: .5s;
+    svg{
+        color:rgb(109, 219, 157);
+        font-size: 50px;
+        
+    }
+    p{
+        color:white;
+        font-size: 18px;
+    }
+    svg path{
+        stroke-dasharray: 30;
+        stroke-dashoffset: 30;
+        transition: .5s;
+        transition-delay: .5s;
+        
+    }
+    &.active path{
+        stroke-dashoffset: 0 !important;
+    }
+    &.active{
+        opacity:100%;
+        top:50% !important;
+    }
+}
