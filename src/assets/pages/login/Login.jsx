@@ -38,6 +38,7 @@ function Login() {
 
     const onChange =(e)=>{
         setValues({...values, [e.target.name]:e.target.value})
+        console.log(values)
     }
   return (
     <div className='login'>

@@ -10,6 +10,10 @@ function Input(props) {
         e.target.value === "" ? setLabelMove(false) : null
         setFocusing(true)
     }
+    const focus = ()=>{
+      // setFocusing(true)
+      setLabelMove(true)
+    }
   return (
     <div className='inputContainer'>
         <label className={labelMove ? "labelActive" : null}>{label}</label>
@@ -18,7 +22,7 @@ function Input(props) {
         type={type}
         {...inputProps}  
         className="input"
-        onFocus={()=> setLabelMove(true)}
+        onFocus={focus}
         onBlur={blur}
         focusing={focusing.toString()}
          />

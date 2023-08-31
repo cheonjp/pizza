@@ -8,6 +8,7 @@
         position:absolute;
         left:10px;
         transition:.3s;
+        font-size: 14px;
     }
     .labelActive{
         bottom:60px !important;
@@ -37,6 +38,7 @@
     .input:invalid[focusing="true"]+span{
         display:block;
     }
+   
 }
 
 

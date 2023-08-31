@@ -1,0 +1,32 @@
+@import "../../../common.scss";
+
+.submit{
+    background-color: $color2;
+    border:none;
+    outline: none;
+    width:100%;
+    color:white;
+    padding:10px;
+    height:40px;
+    cursor: pointer;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:15px;
+    svg{
+        font-size: 20px;
+        display:none;
+        animation: spinner 1.3s infinite forwards
+    }
+    @keyframes spinner {
+        from{
+            transform: rotate(0deg);
+        }
+        to{
+            transform: rotate(360deg);
+        }
+    }
+    &.spinner svg{
+        display:block;
+    }
+}
