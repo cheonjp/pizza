@@ -6,11 +6,15 @@ import Header from './assets/components/header/Header'
 import Footer from './assets/components/footer/Footer'
 import Login from './assets/pages/login/Login'
 import Register from './assets/pages/register/Register'
+import Order from './assets/pages/order/Order'
 
 export const UserContext = createContext()
+export const ModalContext =createContext()
 
 function App() {
   const [user,setUser]=useState(null)
+  const [openModal,setOpenModal]=useState(false)
+  
 
   const Layout = () => {
     return (
@@ -30,6 +34,10 @@ function App() {
           path: "/",
           element: <Home />
         },
+        {
+          path: "/order",
+          element: <Order />
+        },
       ]
     },
     {
@@ -45,7 +53,9 @@ function App() {
   return (
     <div className='app'>
       <UserContext.Provider value={[user,setUser]}>
+        <ModalContext.Provider value ={[openModal,setOpenModal]}>
         <RouterProvider router={router} />
+        </ModalContext.Provider>
       </UserContext.Provider>
     </div>
   )

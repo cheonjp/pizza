@@ -1,0 +1,43 @@
+@import "../../../common.scss";
+
+.order{
+    display:flex;
+    justify-content: center;
+    section{
+        padding:30px;
+        width:100%;
+        max-width: 1400px;
+       
+    }
+    .container{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+        gap:50px;
+        margin-top:100px;
+        .item{
+            min-height:300px;
+            cursor: pointer;
+            img{
+                width:100%;
+            }
+            .itemName{
+                color:$gray3;
+                text-align: center;
+            }
+            .itemDesc{
+                color:$gray4;
+                font-size: 14px;
+            }
+            .priceBox{
+                display:flex;
+                justify-content: space-between;
+            }
+            .itemPrice{
+                color:$gray3;
+                font-weight: 500;
+                display:inline-block;
+                font-size: 14px;
+            }
+        }
+    }
+}

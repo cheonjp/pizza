@@ -1,9 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import "./home.scss"
 import { ReactComponent as IconLogo } from "../../svg/logo_white.svg"
 import { BsArrowRight } from "react-icons/bs"
 import Intro from '../../components/intro/Intro'
 import instance from '../../../axios'
+import Modal from '../../components/modal/Modal'
+import OrderMethod from '../../components/orderMethod/OrderMethod'
+import Order from '../order/Order'
+import { ModalContext, UserContext } from '../../../App'
+import { Link } from 'react-router-dom'
 
 
 
@@ -13,8 +18,12 @@ function Home() {
     const [text, setText] = useState("Best Pizza")
     const [menuAni, setMenuAni] = useState(false)
     const [arrangeData, setArrangeData] = useState(false)
-    const [saleMenuTarget,setSaleMenuTarget]=useState(0)
-    const [allMenu,setAllMenu]=useState(null)
+    const [saleMenuTarget, setSaleMenuTarget] = useState(0)
+    const [allMenu, setAllMenu] = useState(null)
+    const [openModal, setOpenModal] = useContext(ModalContext)
+    const [user,setUser]=useContext(UserContext)
+
+
 
 
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
@@ -32,11 +41,11 @@ function Home() {
             textTag.current.innerHTML = entireText
 
         })
-        setTimeout(()=>{
+        setTimeout(() => {
             textAnimation()
-        },100)
+        }, 100)
     }, [])
-    const textAnimation = ()=>{
+    const textAnimation = () => {
         const displayTexts = document.querySelectorAll(".eachText")
         let timing = 1
         displayTexts.forEach((displayText) => {
@@ -45,18 +54,23 @@ function Home() {
             timing += 0.1
         })
     }
-
-    useEffect(()=>{
-        const getMenus = async () =>{
+    let saleMenu = []
+    useEffect(() => {
+        const getMenus = async () => {
             try {
                 const res = await instance.get("api/menu/get_all")
-                setAllMenu(res.data)
+                res.data.forEach(each => {
+                    if (each.day) {
+                        saleMenu.push(each)
+                        setAllMenu(saleMenu)
+                    }
+                })
             } catch (error) {
                 console.log(error)
             }
         }
         getMenus()
-    },[])
+    }, [])
 
 
     const showSection = (target) => {
@@ -75,10 +89,10 @@ function Home() {
     }
     useEffect(() => {
         let timing = 1000
-        setToday()
         if (menuAni) {
+            setToday()
             const items = document.querySelectorAll(".showSection .left .item")
-            items.forEach((item,i) => {
+            items.forEach((item, i) => {
                 timing += 100
                 setTimeout(() => {
                     item.classList.add(`activeAni-${i}`)
@@ -91,35 +105,35 @@ function Home() {
     let array = []
     const setToday = () => {
         let i = new Date().getDay()
-        if(allMenu){
-            allMenu.forEach(each => {
-                
+
+        if (allMenu) {
+            for (let index = 0; index < 7; index++) {
                 if (i > 6) {
                     i = i - 7
                 }
                 array.push(allMenu[i])
                 i++
-            })
+            }
             setAllMenu(array)
             setArrangeData(true)
         }
     }
 
-    const showMenuDetail =(e)=>{
+    const showMenuDetail = (e) => {
         const item = e.target.closest('.item')
         const itemIndex = item.dataset.index
         setSaleMenuTarget(itemIndex)
         let num
         array = []
-        allMenu.forEach((data,i)=>{
+        allMenu.forEach((data, i) => {
             const targetItem = document.getElementsByClassName("item")[i]
-            num = i-itemIndex
-            if(num < 0){
-                num = allMenu.length+num
+            num = i - itemIndex
+            if (num < 0) {
+                num = allMenu.length + num
             }
-           
-            targetItem.className=`item activeAni-${num}`
-            
+
+            targetItem.className = `item activeAni-${num}`
+
         })
     }
 
@@ -166,8 +180,8 @@ function Home() {
                             </div>
                             <div className="right">
                                 <div className="container">
-                                    {arrangeData  && (
-                                    <>
+                                    {arrangeData && (
+                                        <>
                                             <h2>{allMenu[saleMenuTarget].name}</h2>
                                             <h3>{allMenu[saleMenuTarget].menu}</h3>
                                             <p className='desc'>{allMenu[saleMenuTarget].desc}</p>
@@ -177,7 +191,13 @@ function Home() {
                                                     <span className="price">${allMenu[saleMenuTarget].salePrice}</span>
                                                     <span className="originalPrice">${allMenu[saleMenuTarget].price[2] ? allMenu[saleMenuTarget].price[2] : allMenu[saleMenuTarget].price}</span>
                                                 </div>
-                                                <button className='arrowIconBtn' disabled={saleMenuTarget==0 ? false : true}><BsArrowRight />Order</button>
+                                                {user ?
+                                                    <Link to="/order">
+                                                        <button className='arrowIconBtn' disabled={saleMenuTarget == 0 ? false : true}><BsArrowRight />Order</button>
+                                                    </Link> :
+                                                    <button className='arrowIconBtn' onClick={()=>setOpenModal(true)} disabled={saleMenuTarget == 0 ? false : true}><BsArrowRight />Order</button>
+
+                                                }
                                             </div>
                                         </>
                                     )}
@@ -189,12 +209,18 @@ function Home() {
                 <section className='introduction hideSection' ref={introSection}>
                     <div className="container">
                         <h1>Restaurant</h1>
-                        <Intro title={"FRESH"} image={"fresh.jpg"} text={"MONSTER PIZZA is the best restaurant award since 1988. The reason it all the best is all about Fresh ingredients that food special managers check it as if they care of their children. it gets the restaurant clean, fresh, and making customer visiting again."}/>
-                        <Intro title={"CHEF"} image={"chef.jpg"} text={"to lead his own kitchen, Gus was the opening chef of Perch, a 300 seat restaurant with a focus on using seasonal and local ingredients. Shortly before the opening of Perch, Gus returned to Germany to complete stages at Michelin Starred Restaurants. After Perch closed, Gus spent a summer at restaurant Noma in Copenhagen, an experience that further shaped his food philosophies and broadened his knowledge."}/>
-                        <Intro title={"HISTORIC"} image={"historic.jpg"} text={"The Monster Pizza has been proudly serving deliciously affordable 3 course meals since 1969. Family owned and operated, we’re committed to exceptional service. We invite your family to join ours for a memorable dining experience."}/>
+                        <Intro title={"FRESH"} image={"fresh.jpg"} text={"MONSTER PIZZA is the best restaurant award since 1988. The reason it all the best is all about Fresh ingredients that food special managers check it as if they care of their children. it gets the restaurant clean, fresh, and making customer visiting again."} />
+                        <Intro title={"CHEF"} image={"chef.jpg"} text={"to lead his own kitchen, Gus was the opening chef of Perch, a 300 seat restaurant with a focus on using seasonal and local ingredients. Shortly before the opening of Perch, Gus returned to Germany to complete stages at Michelin Starred Restaurants. After Perch closed, Gus spent a summer at restaurant Noma in Copenhagen, an experience that further shaped his food philosophies and broadened his knowledge."} />
+                        <Intro title={"HISTORIC"} image={"historic.jpg"} text={"The Monster Pizza has been proudly serving deliciously affordable 3 course meals since 1969. Family owned and operated, we’re committed to exceptional service. We invite your family to join ours for a memorable dining experience."} />
                     </div>
                 </section>
             </div>
+            {openModal === true ?
+                <Modal>
+                    <OrderMethod />
+                </Modal> :
+                null
+            }
         </div>
     )
 }

@@ -6,13 +6,13 @@ import instance from '../../../axios'
 import { CgProfile } from "react-icons/cg"
 import { PiShoppingCartLight } from "react-icons/pi"
 import { BiRegistered } from "react-icons/bi"
-import { UserContext } from '../../../App'
+import { ModalContext, UserContext } from '../../../App'
 
 
 function Header() {
     const [scrollActive, setScrollActive] = useState(false)
     const [user, setUser] = useContext(UserContext)
-
+    const [openModal, setOpenModal] = useContext(ModalContext)
     const activeHeader = () => {
         const scrollPosition = window.scrollY
         if (scrollPosition > 110) {
@@ -32,7 +32,7 @@ function Header() {
 
     useEffect(() => {
         if (sessionStorage.getItem("user") !== null) {
-            if(!user){
+            if (!user) {
                 const data = JSON.parse(sessionStorage.getItem("user"))
                 setUser(data)
             }
@@ -44,10 +44,12 @@ function Header() {
         // <header className='header'>
         <header className={scrollActive ? "header active" : "header"}>
             <div className="container">
-                <IconLogo className="logo" />
+                <Link to="/">
+                    <IconLogo className="logo" />
+                </Link>
                 <div className="center">
                     <Link to="/">HOME</Link>
-                    <Link to="/">ORDER</Link>
+                    {user ? <Link to="/order">ORDER</Link> : <Link onClick={() => setOpenModal(true)} to="#">ORDER</Link>}
                     <Link to="/">CONTACT</Link>
                     <Link to="/">LOCATION</Link>
                 </div>
@@ -65,10 +67,8 @@ function Header() {
                         <div className="itemAlert">4</div>
                         <PiShoppingCartLight />
                     </div>
-
                 </div>
             </div>
-
         </header>
     )
 }

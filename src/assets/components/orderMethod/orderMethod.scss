@@ -1,0 +1,65 @@
+@import "../../../common.scss";
+
+.orderMethod {
+    background-color: red;
+    background-image: linear-gradient($color2, rgb(3, 3, 59));
+    padding:0 100px 0 30px;
+    display:flex;
+    gap:30px;
+    position:relative;
+    h4 {
+        color: white;
+        width: fit-content;
+        // font-weight: 300;
+        position: relative;
+
+        &:before {
+            position: absolute;
+            content: "";
+            width: 80%;
+            border: 1px solid $color1;
+            bottom: -15px;
+
+        }
+    }
+
+    .left {
+        p {
+            color: white;
+            font-size: 14px;
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+        }
+
+    }
+    .right{
+        width:200px;
+        svg{
+            margin-bottom: 20px;
+            height:100px;
+        }
+        p{
+            font-size: 14px;
+            margin:0;
+        }
+        a{
+            text-decoration: none;
+            color:$gray4;
+        }
+        .haveAccount{
+            background-color: white;
+            padding:20px;
+            cursor: pointer;
+            height:190px;
+            
+        }
+        .customer{
+            background-color: $color2;
+            padding:20px;
+            color:white;
+            cursor: pointer;
+            height:190px;
+        }
+    }
+}

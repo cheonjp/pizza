@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import "./register.scss"
 import { ReactComponent as IconLogo } from "../../svg/logo_blue.svg"
-import { Link, useNavigate, useNavigation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import instance from '../../../axios'
 import Input from '../../components/input/Input'
 import SubmitBtn from '../../components/submitBtn/SubmitBtn'
@@ -11,7 +11,7 @@ function Register() {
 
     const [sameEmail, setSameEmail] = useState(false)
     const [succeed,setSucceed]=useState(false)
-
+    
     const submitBtn = useRef()
 
     const emailErrorMessage = sameEmail ? "This email is already registered" : "This is not email pattern"

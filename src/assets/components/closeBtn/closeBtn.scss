@@ -1,0 +1,11 @@
+@import "../../../common.scss";
+
+.close{
+    position:absolute;
+    top:20px;
+    right:20px;
+    cursor: pointer;
+    path{
+        stroke:$color1;
+    }
+}
