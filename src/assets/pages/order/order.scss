@@ -1,49 +1,135 @@
 @import "../../../common.scss";
 
-.order{
-    display:flex;
+.order {
+    display: flex;
     justify-content: center;
-    section{
-        padding:30px;
-        width:100%;
+
+    section {
+        padding: 30px;
+        width: 100%;
         max-width: 1400px;
-       
+
+        .selectBoxContainer {
+            display: flex;
+            justify-content: flex-end;
+            gap:30px;
+        }
     }
-    .container{
-        display:grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-        gap:50px;
-        margin-top:100px;
-        .item{
-            min-height:300px;
+
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 50px;
+        margin-top: 100px;
+
+        .item {
+            min-height: 300px;
             cursor: pointer;
-            img{
-                width:100%;
-                height:250px;
+
+            img {
+                width: 100%;
+                height: 250px;
                 object-fit: contain;
             }
-            .itemName{
-                color:$gray3;
+
+            .itemName {
+                color: $gray3;
+                text-align: center;
+                height: 40px;
+            }
+
+            .itemDesc {
+                color: $gray4;
+                font-size: 14px;
+                height: 40px;
                 text-align: center;
             }
-            .itemDesc{
-                color:$gray4;
-                font-size: 14px;
-                height:40px;
-            }
-            .priceBox{
-                display:flex;
-                height:25px;
+
+            .priceBox {
+                display: flex;
+                height: 25px;
                 justify-content: center;
-                gap:22px;
+                gap: 22px;
             }
-            .itemPrice{
-                color:$gray3;
+
+            .itemPrice {
+                color: $gray3;
                 font-weight: 500;
-                display:inline-block;
+                display: inline-block;
                 font-size: 16px;
                 text-align: center;
             }
         }
+    }
+    .select{
+        position:relative;
+        display:inline-block;
+        min-width: 150px;
+        cursor: pointer;
+        .selectContainer{
+            padding-right:25px;
+            border-radius: 5px;
+            border:1px solid $color1;
+            border-bottom: 2px solid $color1;
+            // padding: 7px 10px;
+            color:$color1;
+            display:flex;
+            .title{
+                background-color: $color1;
+                color:white;
+                font-weight: 500;
+                padding: 7px;;
+            }
+            span{
+                padding:7px 10px;
+                display:inline-block;
+            }
+        }
+        .optionContainer{
+            border-radius: 5px;
+            position:absolute;
+            // display:none;
+            max-height:1px;
+            overflow: hidden;
+            opacity: 0;
+            width:100%;
+            left:0;
+            top:calc(100% + 3px);
+            border-left:1px solid $color1;
+            border-right:1px solid $color1;
+            border-top:1px solid $color1;
+            background-color: white;
+            color:$color1;
+            transition:max-height .7s;
+            .optionBox{
+                border-bottom:1px solid $color1;
+                padding:7px 10px;
+                transition:.3s;
+                &:hover{
+                    background-color: $color1;
+                    color:white;
+                }
+                &.selected{
+                    background-color: #bd5800;
+                    pointer-events: none;
+                    color:rgb(243, 222, 180);
+                }
+            }
+            &.active{
+                opacity: 100%;
+                max-height:500px;
+            }
+        }
+        .arrow{
+            position:absolute;
+            top:9px;
+            right:10px;
+            transition: .5s;
+            color:$color1;
+            &.active{
+                transform: rotate(180deg);
+            }
+        }
+      
     }
 }

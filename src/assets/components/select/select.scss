@@ -6,6 +6,7 @@
     min-width: 150px;
     cursor: pointer;
     .selectContainer{
+        padding-right:25px;
         border-radius: 5px;
         border:1px solid $color1;
         border-bottom: 2px solid $color1;
@@ -48,7 +49,9 @@
                 color:white;
             }
             &.selected{
-                background-color: rgb(248, 209, 184);
+                background-color: #bd5800;
+                pointer-events: none;
+                color:rgb(243, 222, 180);
             }
         }
         &.active{
@@ -66,5 +69,5 @@
             transform: rotate(180deg);
         }
     }
-
+  
 }
