@@ -13,6 +13,8 @@ function Header() {
     const [scrollActive, setScrollActive] = useState(false)
     const [user, setUser] = useContext(UserContext)
     const [openModal, setOpenModal] = useContext(ModalContext)
+
+    
     const activeHeader = () => {
         const scrollPosition = window.scrollY
         if (scrollPosition > 110) {

@@ -17,6 +17,9 @@ function Order() {
   const [allMenu, setAllMenu] = useState([])
   const [sortedItems, setSortedItems] = useState([])
 
+  const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  const today = day[new Date().getDay()]
+
   const menuHandleChange = (e) => {
     setMenu(e.target.value)
   }
@@ -28,65 +31,44 @@ function Order() {
 
   const viewByMenu = () => {
     if (menu === "All") {
-      setItems(allMenu)
-    }
-    if (menu === "Appetizer") {
-      const sort = allMenu.filter(item => item.cat === "Appetizer")
-      setItems(sort)
-    }
-    if (menu === "Pizza") {
-      const sort = allMenu.filter(item => item.cat === "Pizza")
+      const sort = allMenu.filter(item => item.cat !== "other")
       setItems(sort)
 
     }
-    if (menu === "Combo") {
-      const sort = allMenu.filter(item => item.cat === "Combo")
-      setItems(sort)
-
-    }
-    if (menu === "Drink") {
-      const sort = allMenu.filter(item => item.cat === "Drink")
-      setItems(sort)
-
-    }
-    if (menu === "Pasta") {
-      const sort = allMenu.filter(item => item.cat === "Pasta")
+    if (menu !== "All") {
+      const sort = allMenu.filter(item => item.cat === menu)
       setItems(sort)
 
     }
   }
 
   useEffect(() => {
-
     viewByMenu()
-  }, [menu, sort,allMenu])
+  }, [menu, sort, allMenu])
 
-  useEffect(()=>{
+  useEffect(() => {
     sortBy()
-  },[items])
+
+  }, [items, allMenu])
+
+
 
   const sortBy = () => {
     if (sort === "Price high to low") {
       const sortItem = items.sort((a, b) => {
-        if (typeof (a.price) === "object") {
-          a.price = a.price[0]
-        }
-        if (typeof (b.price) === "object") {
-          b.price = b.price[0]
-        }
-        return Number(b.price) - Number(a.price)
+        let numberA = typeof (a.price) === "object" ? Number(a.price[0]) : Number(a.price)
+        let numberB = typeof (b.price) === "object" ? Number(b.price[0]) : Number(b.price)
+
+        return numberB - numberA
       })
       setSortedItems(sortItem)
     }
     if (sort === "Price low to high") {
       const sortItem = items.sort((a, b) => {
-        if (typeof (a.price) === "object") {
-          a.price = a.price[0]
-        }
-        if (typeof (b.price) === "object") {
-          b.price = b.price[0]
-        }
-        return Number(a.price) - Number(b.price)
+        let numberA = typeof (a.price) === "object" ? Number(a.price[0]) : Number(a.price)
+        let numberB = typeof (b.price) === "object" ? Number(b.price[0]) : Number(b.price)
+
+        return numberA - numberB
       })
       setSortedItems(sortItem)
     }
@@ -182,10 +164,23 @@ function Order() {
                 <p className='itemDesc'>{item.desc}</p>
                 <div className="priceBox">
                   {typeof (item.price) === "object" && item.price.map((each, index) => {
-                    return <span className='itemPrice'>{sizes[index]}inch $ {each}</span>
+                    console.log(index)
+                    return item.day !== today ? <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
+                      : index === 2 ? <span className='itemPrice lineThrough'>{sizes[index]} inch $ {each}</span>
+                        : <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
                   })}
-                  {typeof (item.price) !== "object" && <span className='itemPrice'>$ {item.price}</span>}
+                  {typeof (item.price) !== "object" && item.day !== today && <span className='itemPrice'>$ {item.price}</span>}
+                  {typeof (item.price) !== "object" && item.day === today && <span className='itemPrice lineThrough'>$ {item.price}</span>}
+
                 </div>
+                {item.day === today && <div className="todayDiscount">
+                  <div className="discountContainer">
+                    <p className="textBox sale">On sale</p>
+                    {item.cat === "Pizza" && <p className="textBox size">16 inch</p>}
+                    <p className="textBox price">$ {item.salePrice}</p>
+
+                  </div>
+                </div>}
               </div>
             )
           })}

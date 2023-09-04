@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./login.scss"
 import { ReactComponent as IconLogo } from "../../svg/logo_blue.svg"
-import { Link, useNavigate, } from 'react-router-dom'
+import { Link, useLocation, useNavigate, } from 'react-router-dom'
 import instance from '../../../axios'
 import Input from '../../components/input/Input'
 import SubmitBtn from '../../components/submitBtn/SubmitBtn'
@@ -12,8 +12,9 @@ function Login() {
     const [message,setMessage]=useState("")
     const [notFound, setNotFound]=useState(false)
     const [notMatched, setNotMatched]=useState(false)
+    const location = useLocation()
 
-    const navigation = useNavigate()
+    const navigate = useNavigate()
     
     const [values,setValues]=useState({
         email:"",
@@ -79,7 +80,7 @@ function Login() {
             sessionStorage.setItem("user",JSON.stringify(user))
 
             if(sessionStorage.getItem("user")){
-                navigation("/")
+                location.state.navigation ==="/order" ?  navigate("/order") : navigate("/")
             }
         }
 

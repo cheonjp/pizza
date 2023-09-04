@@ -26,6 +26,7 @@ function Home() {
 
 
 
+
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
 
     const textTag = useRef()
@@ -101,7 +102,6 @@ function Home() {
         }
     }, [menuAni])
 
-
     let array = []
     const setToday = () => {
         let i = new Date().getDay()
@@ -116,6 +116,7 @@ function Home() {
             }
             setAllMenu(array)
             setArrangeData(true)
+            
         }
     }
 
