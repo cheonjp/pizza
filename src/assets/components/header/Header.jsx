@@ -13,8 +13,9 @@ function Header() {
     const [scrollActive, setScrollActive] = useState(false)
     const [user, setUser] = useContext(UserContext)
     const [openModal, setOpenModal] = useContext(ModalContext)
+    const [openUserDropDown, setOpenUserDropDown] = useState(false)
 
-    
+
     const activeHeader = () => {
         const scrollPosition = window.scrollY
         if (scrollPosition > 110) {
@@ -42,8 +43,24 @@ function Header() {
 
     }, [])
 
+
+
+    useEffect(()=>{
+        const profileDropDownHandler = (e)=>{
+            if(!e.target.closest(".userInfo")){
+                setOpenUserDropDown(false)
+                return document.removeEventListener("mousedown", profileDropDownHandler)
+            }
+        }
+        document.addEventListener("mousedown", profileDropDownHandler)
+    },[openUserDropDown])
+        
+    const logoutHandler = () =>{
+        sessionStorage.removeItem("user")
+        window.location.reload()
+    }
+
     return (
-        // <header className='header'>
         <header className={scrollActive ? "header active" : "header"}>
             <div className="container">
                 <Link to="/">
@@ -57,9 +74,17 @@ function Header() {
                 </div>
                 <div className="right">
                     {user ?
-                        <div className="profileImage">
-                            <img src={instance.defaults.baseURL + "/images/profile/no_profile.png"} alt="" />
-                        </div> :
+                        <div className='userInfo'  onClick={()=>setOpenUserDropDown(!openUserDropDown)}>
+                            <div className="profileImage">
+                                <img src={instance.defaults.baseURL + "/images/profile/no_profile.png"} alt="" />
+                            </div>
+                            {openUserDropDown &&
+                                <ul className="profileDropDown">
+                                    <li>User Information</li>
+                                    <li onClick={logoutHandler}>Logout</li>
+                                </ul>}
+                        </div>
+                        :
                         <Link to="/login">
                             <div className="login">Login</div>
                         </Link>

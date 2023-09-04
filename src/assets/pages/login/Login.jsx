@@ -80,7 +80,7 @@ function Login() {
             sessionStorage.setItem("user",JSON.stringify(user))
 
             if(sessionStorage.getItem("user")){
-                location.state.navigation ==="/order" ?  navigate("/order") : navigate("/")
+               location.state && location.state.navigation ==="/order" ?  navigate("/order") : navigate("/")
             }
         }
 
