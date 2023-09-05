@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import "./header.scss"
 import { ReactComponent as IconLogo } from "../../svg/logo.svg"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import instance from '../../../axios'
 import { CgProfile } from "react-icons/cg"
 import { PiShoppingCartLight } from "react-icons/pi"
@@ -14,6 +14,8 @@ function Header() {
     const [user, setUser] = useContext(UserContext)
     const [openModal, setOpenModal] = useContext(ModalContext)
     const [openUserDropDown, setOpenUserDropDown] = useState(false)
+
+    const navigate = useNavigate()
 
 
     const activeHeader = () => {
@@ -57,6 +59,7 @@ function Header() {
         
     const logoutHandler = () =>{
         sessionStorage.removeItem("user")
+        navigate("/")
         window.location.reload()
     }
 
@@ -75,12 +78,13 @@ function Header() {
                 <div className="right">
                     {user ?
                         <div className='userInfo'  onClick={()=>setOpenUserDropDown(!openUserDropDown)}>
+                            <span>Hi {user.username}</span>
                             <div className="profileImage">
                                 <img src={instance.defaults.baseURL + "/images/profile/no_profile.png"} alt="" />
                             </div>
                             {openUserDropDown &&
                                 <ul className="profileDropDown">
-                                    <li>User Information</li>
+                                    <Link to={`/profile/${user._id}`}><li>User Information</li></Link>
                                     <li onClick={logoutHandler}>Logout</li>
                                 </ul>}
                         </div>

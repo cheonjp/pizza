@@ -45,3 +45,32 @@ h1{
     left:50%;
     transform: translate(-50%,-50%);
 }
+
+.arrowIconBtn{
+    background-color:white;
+    display:flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap:10px;
+    outline:none;
+    border: 1px solid $color1;
+    color:$color1;
+    cursor: pointer;
+    svg{
+        font-size: 17px;
+    }
+    &:hover svg{
+        animation: btnAni .5s ease-in alternate infinite;
+    }
+    @keyframes btnAni {
+        from{
+            transform:translateX(0px);
+        }                                
+        to{
+            transform:translateX(-30px);
+        }                                
+    }
+    &:disabled{
+        cursor:not-allowed;
+    }
+}

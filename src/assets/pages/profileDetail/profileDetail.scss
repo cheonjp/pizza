@@ -1,0 +1,129 @@
+@import "../../../common.scss" ;
+
+.profileDetail{
+    background-color: #173248;
+    .heroImg{
+        width:100vw;
+        height:250px;
+        object-fit: cover;
+        filter:grayscale(80%);
+    }
+    .container{
+        width:100%;
+        margin:auto;
+        padding:0 30px;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #173248;
+        padding-bottom:100px;
+        align-items: center;
+        .profileImg{
+            cursor: pointer;
+            input{
+                display:none;
+            }
+        }
+        .nameAndImgContainer{
+            display:flex;
+            transform: translateY(-150px);
+            align-items: center;
+            h2{
+                margin-left:50px;
+                font-family: $secfont;
+                font-size: 3rem;
+                color:$color1;
+                transform: translateY(20px);
+                font-weight: 300;
+            }
+        }
+        .imgContainer{
+            width:15rem;
+            height:15rem;
+            border-radius: 50%;
+            border:none;
+            display:relative;
+            &:after{
+                position:absolute;
+                content:"";
+                width:15rem;
+                height:100%;
+                background-color: $color1;
+                border:none;
+                top:5px;
+                left:5px;
+                border-radius:50%;
+                z-index: -1;
+            }
+        }
+        img{
+            width:15rem;
+            height:15rem;
+            border-radius: 50%;
+            border:none;
+        }
+        .inputContainer{
+            transform: translateY(-50px);
+            width:100%;
+            max-width: 578px;
+            background-color: rgb(15, 31, 47);
+            padding:30px;
+            border-radius: 20px;
+            
+            form{
+                display:flex;
+                flex-direction: column;
+                gap:30px;
+                .inputBox{
+                    display:flex;
+                    align-items: center;
+                    gap:10px;
+                    color:white;
+                    position:relative;
+                    span:first-child{
+                        width:200px;
+                        display:inline-block;
+                        text-align: right;
+
+                    }
+                   svg{
+                    position:absolute;
+                    right:0;
+                    cursor: pointer;
+                   }
+                }
+            }
+            input{
+                pointer-events: none;
+                background-color: rgba(0,0,0,0);
+                // border:none;
+                padding:10px 5px;
+                font-size: 1.1rem;
+                color:white;
+                border:none;
+                outline: none;
+                &.inputActive{
+                    pointer-events: auto !important;
+                    border-bottom: 1px solid $color1;
+                }
+            }
+            .arrowIconBtn{
+                background-color: inherit;
+                // justify-content: center;
+            }
+        }
+    }
+    .inputActive:invalid{
+        border-bottom: 1px solid red !important;
+    }
+    .inputActive:invalid +div{
+        display:block !important;
+    }
+    .errorMessage{
+        display:none;
+        position:absolute;
+        bottom:-25px;
+        right:0;
+        color:red;
+    }
+}

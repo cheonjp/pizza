@@ -24,9 +24,6 @@ function Home() {
     const [user,setUser]=useContext(UserContext)
 
 
-
-
-
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
 
     const textTag = useRef()

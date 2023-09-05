@@ -7,6 +7,7 @@ import Footer from './assets/components/footer/Footer'
 import Login from './assets/pages/login/Login'
 import Register from './assets/pages/register/Register'
 import Order from './assets/pages/order/Order'
+import ProfileDetail from './assets/pages/profileDetail/ProfileDetail'
 
 export const UserContext = createContext()
 export const ModalContext =createContext()
@@ -37,6 +38,10 @@ function App() {
         {
           path: "/order",
           element: <Order />
+        },
+        {
+          path: "/profile/:id",
+          element: <ProfileDetail />
         },
       ]
     },
