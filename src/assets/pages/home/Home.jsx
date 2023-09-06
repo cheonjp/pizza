@@ -80,7 +80,7 @@ function Home() {
         }
     }
 
-
+    
     window.onscroll = () => {
         showSection(section)
         showSection(introSection)
@@ -166,7 +166,7 @@ function Home() {
                                 {allMenu && allMenu.map((data, i) => {
                                     return (
                                         <>
-                                            <div className="item" onClick={showMenuDetail} data-index={i}>
+                                            <div key={i} className="item" onClick={showMenuDetail} data-index={i}>
                                                 <h2>{i === 0 ? "Today" : data.day}</h2>
                                                 <img src={data.img} alt={data.name} />
                                             </div>

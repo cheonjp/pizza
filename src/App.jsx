@@ -1,4 +1,4 @@
-import { createContext,useEffect,useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
 import Home from './assets/pages/home/Home'
@@ -10,12 +10,13 @@ import Order from './assets/pages/order/Order'
 import ProfileDetail from './assets/pages/profileDetail/ProfileDetail'
 
 export const UserContext = createContext()
-export const ModalContext =createContext()
+export const ModalContext = createContext()
 
 function App() {
-  const [user,setUser]=useState(null)
-  const [openModal,setOpenModal]=useState(false)
-  
+  const [user, setUser] = useState(null)
+  const [openModal, setOpenModal] = useState(false)
+
+
 
   const Layout = () => {
     return (
@@ -57,9 +58,9 @@ function App() {
 
   return (
     <div className='app'>
-      <UserContext.Provider value={[user,setUser]}>
-        <ModalContext.Provider value ={[openModal,setOpenModal]}>
-        <RouterProvider router={router} />
+      <UserContext.Provider value={[user, setUser]}>
+        <ModalContext.Provider value={[openModal, setOpenModal]}>
+          <RouterProvider router={router} />
         </ModalContext.Provider>
       </UserContext.Provider>
     </div>

@@ -78,6 +78,8 @@ function Login() {
         if(user._id){
             sessionStorage.removeItem("user")
             sessionStorage.setItem("user",JSON.stringify(user))
+            
+            sessionStorage.setItem("accessToken",JSON.stringify(user.accessToken))
 
             if(sessionStorage.getItem("user")){
                location.state && location.state.navigation ==="/order" ?  navigate("/order") : navigate("/")

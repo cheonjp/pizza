@@ -158,7 +158,7 @@ function Order() {
         <div className="container">
           {allMenu.length > 0 && sortedItems.map((item, index) => {
             return (
-              <div className="item">
+              <div className="item" key={index}>
                 <img src={item.img} alt={item.name} />
                 <h4 className='itemName'>{item.name}</h4>
                 <p className='itemDesc'>{item.desc}</p>

@@ -42,7 +42,7 @@ function Select(props) {
                 {
                     optionArray.map((option,index) => {
                         return (
-                            <div className={index === 0 ? "optionBox selected" : "optionBox"} onClick={optionEvent}>
+                            <div key={index} className={index === 0 ? "optionBox selected" : "optionBox"} onClick={optionEvent}>
                                 <div className="option" value={option}>{option}</div>
                             </div>
                         )

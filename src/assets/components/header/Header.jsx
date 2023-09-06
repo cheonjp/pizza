@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import "./header.scss"
 import { ReactComponent as IconLogo } from "../../svg/logo.svg"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import instance from '../../../axios'
 import { CgProfile } from "react-icons/cg"
 import { PiShoppingCartLight } from "react-icons/pi"
@@ -16,8 +16,7 @@ function Header() {
     const [openUserDropDown, setOpenUserDropDown] = useState(false)
 
     const navigate = useNavigate()
-
-
+   
     const activeHeader = () => {
         const scrollPosition = window.scrollY
         if (scrollPosition > 110) {
@@ -34,7 +33,6 @@ function Header() {
         }
     })
 
-
     useEffect(() => {
         if (sessionStorage.getItem("user") !== null) {
             if (!user) {
@@ -42,10 +40,7 @@ function Header() {
                 setUser(data)
             }
         }
-
-    }, [])
-
-
+    }, [user])
 
     useEffect(()=>{
         const profileDropDownHandler = (e)=>{
@@ -56,12 +51,14 @@ function Header() {
         }
         document.addEventListener("mousedown", profileDropDownHandler)
     },[openUserDropDown])
+
         
     const logoutHandler = () =>{
         sessionStorage.removeItem("user")
         navigate("/")
         window.location.reload()
     }
+
 
     return (
         <header className={scrollActive ? "header active" : "header"}>
@@ -80,7 +77,7 @@ function Header() {
                         <div className='userInfo'  onClick={()=>setOpenUserDropDown(!openUserDropDown)}>
                             <span>Hi {user.username}</span>
                             <div className="profileImage">
-                                <img src={instance.defaults.baseURL + "/images/profile/no_profile.png"} alt="" />
+                                {<img src={!user.img ? instance.defaults.baseURL + "/images/profile/no_profile.png" : instance.defaults.baseURL + "/images/profile/" + user.img} alt="" />}
                             </div>
                             {openUserDropDown &&
                                 <ul className="profileDropDown">

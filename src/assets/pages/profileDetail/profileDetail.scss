@@ -20,6 +20,7 @@
         align-items: center;
         .profileImg{
             cursor: pointer;
+            object-fit: cover;
             input{
                 display:none;
             }
@@ -36,6 +37,24 @@
                 transform: translateY(20px);
                 font-weight: 300;
             }
+            .profileImg{
+                pointer-events: none;
+                &.inputActive{
+                    pointer-events: auto !important;
+                    animation: flowingImg 2s infinite
+                }
+                @keyframes flowingImg {
+                    0%{
+                        transform:translateY(0px)
+                    }
+                    50%{
+                        transform:translateY(30px)
+                    }
+                    100%{
+                        transform:translateY(0px)
+                    }
+                }
+            }
         }
         .imgContainer{
             width:15rem;
@@ -43,6 +62,7 @@
             border-radius: 50%;
             border:none;
             display:relative;
+           
             &:after{
                 position:absolute;
                 content:"";
@@ -69,6 +89,9 @@
             background-color: rgb(15, 31, 47);
             padding:30px;
             border-radius: 20px;
+            display:flex;
+            flex-direction: column;
+            gap:10px;
             
             form{
                 display:flex;
@@ -125,5 +148,28 @@
         bottom:-25px;
         right:0;
         color:red;
+    }
+    .editPasswordContainer{
+        background-color: white;
+        width:100%;
+        max-width: 400px;
+        border-radius: 20px;
+        display:flex;
+        justify-content: center;
+        padding:20px;
+        flex-direction: column;
+        gap:0px;
+        form{
+            display:flex;
+            flex-direction: column;
+            gap:20px;
+        }
+        .title{
+            // font-family: $secfont;
+            color:$color1;
+        }
+        button{
+            margin-top: 10px;
+        }
     }
 }
