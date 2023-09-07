@@ -1,56 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { BsChevronDown } from "react-icons/bs"
+import React from 'react'
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ComSelect from '@mui/material/Select';
 import "./select.scss"
 
-// function Select({textTitle,optionArray,refer,targetFunction}) {
-function Select(props) {
-    const {textTitle,optionArray,refer}=props
-    const [openSelect, setOpenSelect] = useState(false)
-    const [firstValue, setFirstValue] = useState("")
 
+function Select({ values, cat, onchange, selectValue }) {
+    const [option, setOption] = React.useState('');
 
-    const activeSelect = (e) => {
-        setOpenSelect(!openSelect)
-    }
-
-    useEffect(()=>{
-
-    },[firstValue])
-    
-    const optionEvent = (e) => {
-        const parent = e.target.parentElement.parentElement
-        const options = parent.querySelectorAll(".optionBox")
-        options.forEach((option)=>{
-            option.classList.remove('selected')
-        })
-        setFirstValue(e.target.textContent)
-        
-        e.currentTarget.classList.add("selected")
-    }
-    window.onclick = (e) => {
-        e.target.closest(".select") || setOpenSelect(false)
-
-    }
-    
     return (
-        <div className='select' >
-            <div className="selectContainer">
-                <div className="title">{textTitle}</div>
-                <div className="select"><span value ={firstValue} ref={refer}>{firstValue === "" ? optionArray[0] : firstValue}</span></div>
-            </div>
-            <div className={openSelect ? "optionContainer active" : "optionContainer"}>
-                {
-                    optionArray.map((option,index) => {
-                        return (
-                            <div key={index} className={index === 0 ? "optionBox selected" : "optionBox"} onClick={optionEvent}>
-                                <div className="option" value={option}>{option}</div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            <BsChevronDown className={openSelect ? "arrow active" : "arrow"} />
-        </div>
+        <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">{cat}</InputLabel>
+                <ComSelect
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selectValue}
+                    label={cat}
+                    onChange={onchange}
+                >
+                    {values.map((value, i) => {
+                        return <MenuItem key={i} value={value}>{value + " inch"}</MenuItem>
+                    })}
+                </ComSelect>
+            </FormControl>
+        </Box>
     )
 }
 

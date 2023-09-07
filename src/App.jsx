@@ -8,6 +8,7 @@ import Login from './assets/pages/login/Login'
 import Register from './assets/pages/register/Register'
 import Order from './assets/pages/order/Order'
 import ProfileDetail from './assets/pages/profileDetail/ProfileDetail'
+import ItemDetail from './assets/pages/itemDetail/ItemDetail'
 
 export const UserContext = createContext()
 export const ModalContext = createContext()
@@ -43,6 +44,10 @@ function App() {
         {
           path: "/profile/:id",
           element: <ProfileDetail />
+        },
+        {
+          path: "/order/:id",
+          element: <ItemDetail />
         },
       ]
     },

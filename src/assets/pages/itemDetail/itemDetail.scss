@@ -1,0 +1,148 @@
+@import "../../../common.scss";
+.itemDetail{
+    display:flex;
+        &>.container{
+            width:100%;
+            max-width: 1100px;
+            margin:100px auto;
+            // background-color: rgb(240,240,240);
+            border:1px solid $gray6;
+            display:flex;
+            max-height: 500px;
+            height:100vh;
+            position:relative;
+            .decoTextBox1{
+                position:absolute;
+                top:30%;
+                left:50%;
+                transform: translateX(-50%);
+                font-size: 1.7rem;
+                color: $color1;
+                font-weight: 500;
+                pointer-events: none;
+                &:before{
+                    position:absolute;
+                    content:"FRESH";
+                    color:$color2;
+                    width:50%;
+                    overflow: hidden;
+                }
+            }
+            .decoTextBox2{
+                position:absolute;
+                pointer-events: none;
+                bottom:30%;
+                left:50%;
+                transform: translateX(-50%);
+                font-size: 1.7rem;
+                color: $color1;
+                font-weight: 500;
+                &:before{
+                    position:absolute;
+                    content:"CLASSIC";
+                    color:$color2;
+                    width:50%;
+                    overflow: hidden;
+                }
+            }
+            .left{
+                background-color: $color1;
+                flex:1;
+                background-image: url("/img/fresh_table.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img{
+                    object-fit: contain;
+                    width:80%;
+                    height:80%;
+                }
+            }
+            .right{
+                flex:1;
+                .container{
+                    padding:50px 70px;
+                    display:flex;
+                    flex-direction: column;
+                    gap:20px;
+                    .desc{
+                        font-size: 14px;
+                        color:$gray3;
+                    }
+                    .titleBox{
+                        display:flex;
+                        justify-content: center;
+                    }
+                    h3{
+                        font-weight: 500;
+                        color:$color2;
+                        text-align: center;
+                        border-bottom: 1px solid $color1;
+                        width:fit-content;
+                    }
+                    .totalPriceBox{
+                        display:flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top:20px;
+                        .priceText{
+                            color:$gray3;
+                            font-size: 14px;
+                            margin-right:20px;
+                        }
+                        .price{
+                            font-size: 30px;
+                            font-family: $secfont;
+                            color:$color2;
+                        }
+                        // .totalPrice{
+                        //     display:flex;
+                        //     gap:20px;
+                        // }
+                    }
+                }
+                .priceList{
+                    display:flex;
+                    justify-content: space-between;
+                    font-weight: 500;
+                    color:$gray3;
+                }
+                .quantityBox{
+                    width:100px;
+                    display:flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    
+                    button{
+                        background-color: white;
+                        border:1px solid $color1;
+                        color:$color1;
+                        outline: none;
+                        width:25px;
+                        height:25px;
+                        &:active{
+                            background-color: rgb(240, 233, 233);                           
+                        }
+                    }
+                    input{
+                        width:55px;
+                        padding-left:10px;
+                        border:none;
+                        appearance: none;
+                        -moz-appearance: textfield;
+                        outline:none;
+                    }
+                }
+                .arrowIconBtn.fill{
+                    background-color: $color1;
+                    color:white;
+                }
+                .btnContainer{
+                    display:flex;
+                    gap:10px;
+                }
+            }
+        }
+}

@@ -139,7 +139,7 @@
     .inputActive:invalid{
         border-bottom: 1px solid red !important;
     }
-    .inputActive:invalid +div{
+    .inputActive:invalid + div{
         display:block !important;
     }
     .errorMessage{

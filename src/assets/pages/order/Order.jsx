@@ -5,6 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Link } from 'react-router-dom';
 
 
 function Order() {
@@ -158,30 +159,32 @@ function Order() {
         <div className="container">
           {allMenu.length > 0 && sortedItems.map((item, index) => {
             return (
-              <div className="item" key={index}>
-                <img src={item.img} alt={item.name} />
-                <h4 className='itemName'>{item.name}</h4>
-                <p className='itemDesc'>{item.desc}</p>
-                <div className="priceBox">
-                  {typeof (item.price) === "object" && item.price.map((each, index) => {
-                    console.log(index)
-                    return item.day !== today ? <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
-                      : index === 2 ? <span className='itemPrice lineThrough'>{sizes[index]} inch $ {each}</span>
-                        : <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
-                  })}
-                  {typeof (item.price) !== "object" && item.day !== today && <span className='itemPrice'>$ {item.price}</span>}
-                  {typeof (item.price) !== "object" && item.day === today && <span className='itemPrice lineThrough'>$ {item.price}</span>}
-
-                </div>
-                {item.day === today && <div className="todayDiscount">
-                  <div className="discountContainer">
-                    <p className="textBox sale">On sale</p>
-                    {item.cat === "Pizza" && <p className="textBox size">16 inch</p>}
-                    <p className="textBox price">$ {item.salePrice}</p>
+              <Link to={`/order/${item._id}`}>
+                <div id={item._id} className="item" key={index}>
+                  <img src={item.img} alt={item.name} />
+                  <h4 className='itemName'>{item.name}</h4>
+                  <p className='itemDesc'>{item.desc}</p>
+                  <div className="priceBox">
+                    {typeof (item.price) === "object" && item.price.map((each, index) => {
+                      console.log(index)
+                      return item.day !== today ? <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
+                        : index === 2 ? <span className='itemPrice lineThrough'>{sizes[index]} inch $ {each}</span>
+                          : <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
+                    })}
+                    {typeof (item.price) !== "object" && item.day !== today && <span className='itemPrice'>$ {item.price}</span>}
+                    {typeof (item.price) !== "object" && item.day === today && <span className='itemPrice lineThrough'>$ {item.price}</span>}
 
                   </div>
-                </div>}
-              </div>
+                  {item.day === today && <div className="todayDiscount">
+                    <div className="discountContainer">
+                      <p className="textBox sale">On sale</p>
+                      {item.cat === "Pizza" && <p className="textBox size">16 inch</p>}
+                      <p className="textBox price">$ {item.salePrice}</p>
+
+                    </div>
+                  </div>}
+                </div>
+              </Link>
             )
           })}
 
