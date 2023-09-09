@@ -47,19 +47,19 @@ function ItemDetail() {
     useEffect(() => {
         quantity <= 1 && setQuantity(1)
         if(item.day !==today){
-
-            if (item.price) {
-                if (Array.isArray(item.price)) {
-                    if (sizeValue === 12) {
-                        setTotalPrice(Number(item.price[0]) * quantity)
-                    } else if (sizeValue === 14) {
-                        setTotalPrice(Number(item.price[1]) * quantity)
-                    } else if (sizeValue === 16) {
-                        setTotalPrice(Number(item.price[2]) * quantity)
-                    }
-                } else {
-                    setTotalPrice(quantity * item.price)
+            
+        }
+        if (item.price) {
+            if (Array.isArray(item.price)) {
+                if (sizeValue === 12) {
+                    setTotalPrice(Number(item.price[0]) * quantity)
+                } else if (sizeValue === 14) {
+                    setTotalPrice(Number(item.price[1]) * quantity)
+                } else if (sizeValue === 16) {
+                    setTotalPrice(Number(item.price[2]) * quantity)
                 }
+            } else {
+                setTotalPrice(quantity * item.price)
             }
         }
 
@@ -79,7 +79,7 @@ function ItemDetail() {
     }, [])
 
     useEffect(() => {
-        Array.isArray(item.price) ? setTotalPrice(Number(item.price[0])) : setTotalPrice(Number(item.price))
+        // Array.isArray(item.price) ? setTotalPrice(Number(item.price[0])) : setTotalPrice(Number(item.price))
         if(item.day === today){
             setTotalPrice(item.salePrice)
         }
