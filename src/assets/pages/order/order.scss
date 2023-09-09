@@ -3,7 +3,9 @@
 .order {
     display: flex;
     justify-content: center;
-
+    a{
+        text-decoration: none;
+    }
     section {
         padding: 30px 30px 100px 30px;
         width: 100%;

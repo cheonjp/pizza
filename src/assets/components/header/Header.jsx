@@ -6,7 +6,7 @@ import instance from '../../../axios'
 import { CgProfile } from "react-icons/cg"
 import { PiShoppingCartLight } from "react-icons/pi"
 import { BiRegistered } from "react-icons/bi"
-import { ModalContext, UserContext } from '../../../App'
+import { CartItemContext, ModalContext, UserContext } from '../../../App'
 
 
 function Header() {
@@ -14,9 +14,12 @@ function Header() {
     const [user, setUser] = useContext(UserContext)
     const [openModal, setOpenModal] = useContext(ModalContext)
     const [openUserDropDown, setOpenUserDropDown] = useState(false)
+    
+    const [cartNumber,setCartNumber]=useContext(CartItemContext)
 
     const navigate = useNavigate()
-   
+    const location = useLocation()
+
     const activeHeader = () => {
         const scrollPosition = window.scrollY
         if (scrollPosition > 110) {
@@ -59,6 +62,14 @@ function Header() {
         window.location.reload()
     }
 
+    const settingNavigation = (e) =>{
+        if(location.pathname === "/"){
+            setOpenModal(true)
+        }else{
+            navigate("/order")
+        }
+    }
+
 
     return (
         <header className={scrollActive ? "header active" : "header"}>
@@ -68,7 +79,7 @@ function Header() {
                 </Link>
                 <div className="center">
                     <Link to="/">HOME</Link>
-                    {user ? <Link to="/order">ORDER</Link> : <Link onClick={() => setOpenModal(true)} to="#">ORDER</Link>}
+                    {user ? <Link to="/order">ORDER</Link> : <div className='orderLink' onClick={settingNavigation}>ORDER</div>}
                     <Link to="/">CONTACT</Link>
                     <Link to="/">LOCATION</Link>
                 </div>
@@ -92,7 +103,7 @@ function Header() {
 
                     }
                     <div className="cart">
-                        <div className="itemAlert">4</div>
+                        {cartNumber > 0 && <div className="itemAlert">{cartNumber <100 ? cartNumber : "99+"}</div>}
                         <PiShoppingCartLight />
                     </div>
                 </div>

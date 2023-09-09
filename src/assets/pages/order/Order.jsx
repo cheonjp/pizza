@@ -29,7 +29,6 @@ function Order() {
   }
 
 
-
   const viewByMenu = () => {
     if (menu === "All") {
       const sort = allMenu.filter(item => item.cat !== "other")
@@ -166,10 +165,9 @@ function Order() {
                   <p className='itemDesc'>{item.desc}</p>
                   <div className="priceBox">
                     {typeof (item.price) === "object" && item.price.map((each, index) => {
-                      console.log(index)
-                      return item.day !== today ? <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
-                        : index === 2 ? <span className='itemPrice lineThrough'>{sizes[index]} inch $ {each}</span>
-                          : <span className='itemPrice'>{sizes[index]} inch $ {each}</span>
+                      return item.day !== today ? <span className='itemPrice' key={index}>{sizes[index]} inch $ {each}</span>
+                        : index === 2 ? <span className='itemPrice lineThrough' key={index}>{sizes[index]} inch $ {each}</span>
+                          : <span className='itemPrice' key={index}>{sizes[index]} inch $ {each}</span>
                     })}
                     {typeof (item.price) !== "object" && item.day !== today && <span className='itemPrice'>$ {item.price}</span>}
                     {typeof (item.price) !== "object" && item.day === today && <span className='itemPrice lineThrough'>$ {item.price}</span>}
@@ -180,7 +178,6 @@ function Order() {
                       <p className="textBox sale">On sale</p>
                       {item.cat === "Pizza" && <p className="textBox size">16 inch</p>}
                       <p className="textBox price">$ {item.salePrice}</p>
-
                     </div>
                   </div>}
                 </div>

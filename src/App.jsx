@@ -9,15 +9,47 @@ import Register from './assets/pages/register/Register'
 import Order from './assets/pages/order/Order'
 import ProfileDetail from './assets/pages/profileDetail/ProfileDetail'
 import ItemDetail from './assets/pages/itemDetail/ItemDetail'
+import Cart from './assets/pages/cart/Cart'
+import instance from './axios'
 
 export const UserContext = createContext()
 export const ModalContext = createContext()
+export const CartItemContext = createContext()
 
 function App() {
   const [user, setUser] = useState(null)
   const [openModal, setOpenModal] = useState(false)
+  const sessionItems = sessionStorage.getItem("cartItems") ? JSON.parse(sessionStorage.getItem("cartItems")) : null
+  const [cartNumber, setCartNumber] = useState(sessionItems ? sessionItems.length : null)
 
+  useEffect(() => {
+    const getUserCartItems = async () => {
+      try {
+        if (user) {
+          const userId = user._id
+          if (sessionItems) {
+            sessionItems.forEach(async (item) => {
+              try {
+                const test = await instance.post("/api/checkout/cart/" + user._id, { ...item, userId: user._id })
+              } catch (error) {
+                console.log(error)
+              }
+            })
+            sessionStorage.removeItem("cartItems")
+          }
+          const res = await instance.get("/api/checkout/cart/all-items/" + userId)
+          setCartNumber(res.data.length)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getUserCartItems()
+  }, [user,cartNumber])
 
+  // window.onscroll = () =>{
+  //   console.log(cartNumber)
+  // }
 
   const Layout = () => {
     return (
@@ -49,6 +81,10 @@ function App() {
           path: "/order/:id",
           element: <ItemDetail />
         },
+        {
+          path: "/cart/:id",
+          element: <Cart />
+        },
       ]
     },
     {
@@ -65,7 +101,9 @@ function App() {
     <div className='app'>
       <UserContext.Provider value={[user, setUser]}>
         <ModalContext.Provider value={[openModal, setOpenModal]}>
-          <RouterProvider router={router} />
+          <CartItemContext.Provider value={[cartNumber, setCartNumber]}>
+            <RouterProvider router={router} />
+          </CartItemContext.Provider>
         </ModalContext.Provider>
       </UserContext.Provider>
     </div>

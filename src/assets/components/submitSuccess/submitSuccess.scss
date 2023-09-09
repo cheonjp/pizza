@@ -15,6 +15,7 @@
     flex-direction: column;
     opacity:0%;
     transition: .5s;
+    z-index:999;
     svg{
         color:rgb(109, 219, 157);
         font-size: 50px;

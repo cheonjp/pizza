@@ -1,18 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import "./ItemDetail.scss"
 import Select from '../../components/select/Select'
 import { BsArrowRight } from "react-icons/bs"
 import instance from '../../../axios'
-import { useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
+import { CartItemContext } from '../../../App'
+import SubmitSuccess from '../../components/submitSuccess/SubmitSuccess'
 
 function ItemDetail() {
     const [sizeValue, setSizeValue] = useState(12)
     const [quantity, setQuantity] = useState("")
     const [item, setItem] = useState({})
-    const [totalPrice,setTotalPrice]=useState(null)
+    const [totalPrice, setTotalPrice] = useState(null)
+    const [cartItems, setCartItems] = useState(sessionStorage.getItem("cartItems") ?
+        JSON.parse(sessionStorage.getItem("cartItems")) : [])
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")))
+    const [render, setRender] = useState(false)
 
-    const totalPriceTag=useRef()
+    const [cartNumber, setCartNumber] = useContext(CartItemContext)
 
+    const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const today = day[new Date().getDay()]
+    console.log(item)
+
+    const totalPriceTag = useRef()
+    const location = useLocation()
 
     const { id } = useParams()
     let inch = 10
@@ -23,31 +35,34 @@ function ItemDetail() {
     }
     const selectValue = (event, value) => {
         setSizeValue(Number(event.target.value))
-        if(event.target.value === 12){
+        if (event.target.value === 12) {
             setTotalPrice(Number(item.price[0]) * quantity)
-        }else if(event.target.value === 14){
+        } else if (event.target.value === 14) {
             setTotalPrice(Number(item.price[1]) * quantity)
-        }else{
+        } else {
             setTotalPrice(Number(item.price[2]) * quantity)
         }
     }
 
     useEffect(() => {
         quantity <= 1 && setQuantity(1)
-        if(item.price){
-            if(Array.isArray(item.price)){
-                if(sizeValue === 12){
-                    setTotalPrice(Number(item.price[0]) * quantity)
-                }else if(sizeValue === 14){
-                    setTotalPrice(Number(item.price[1]) * quantity)
-                }else if(sizeValue === 16){
-                    setTotalPrice(Number(item.price[2]) * quantity)
+        if(item.day !==today){
+
+            if (item.price) {
+                if (Array.isArray(item.price)) {
+                    if (sizeValue === 12) {
+                        setTotalPrice(Number(item.price[0]) * quantity)
+                    } else if (sizeValue === 14) {
+                        setTotalPrice(Number(item.price[1]) * quantity)
+                    } else if (sizeValue === 16) {
+                        setTotalPrice(Number(item.price[2]) * quantity)
+                    }
+                } else {
+                    setTotalPrice(quantity * item.price)
                 }
-            }else{
-                setTotalPrice(quantity * item.price)
             }
         }
-                
+
     }, [quantity])
 
     useEffect(() => {
@@ -55,7 +70,7 @@ function ItemDetail() {
             try {
                 const res = await instance.get("/api/menu/get/" + id)
                 setItem(res.data)
-                
+
             } catch (error) {
                 console.log(error.response)
             }
@@ -63,18 +78,65 @@ function ItemDetail() {
         getMenu()
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         Array.isArray(item.price) ? setTotalPrice(Number(item.price[0])) : setTotalPrice(Number(item.price))
-    },[item])
+        if(item.day === today){
+            setTotalPrice(item.salePrice)
+        }
+    }, [item])
 
     const adjustNumber = (e) => {
         setQuantity(e.target.value)
     }
-
-    const calculatedPrice = () =>{
-        // console.log(totalPrice)
+    let singleItem
+    const handleItemList = () => {
+        if (user) {
+            singleItem = {
+                img: item.img,
+                name: item.name,
+                size: sizeValue,
+                price: totalPrice / quantity,
+                quantity: quantity,
+                totalPrice: totalPrice,
+                userId: user._id
+            }
+            setCartItems(singleItem)
+            setRender(true)
+        } else {
+            singleItem = {
+                img: item.img,
+                name: item.name,
+                size: sizeValue,
+                price: totalPrice / quantity,
+                quantity: quantity,
+                totalPrice: totalPrice,
+            }
+            setCartItems([...cartItems, singleItem])
+            setRender(true)
+        }
     }
-    
+
+    const savedItem = async () => {
+        try {
+            if (user) {
+                await instance.post("/api/checkout/cart/" + user._id, cartItems)
+                setCartNumber(cartNumber + 1)
+                setRender(false)
+            } else {
+                sessionStorage.setItem("cartItems", JSON.stringify(cartItems))
+                setCartNumber(cartItems.length)
+            }
+        } catch (error) {
+            console.log(error.response)
+        }
+        setRender(false)
+    }
+    useEffect(() => {
+        if (render) {
+            savedItem()
+        }
+    }, [render])
+
     return (
         <div className='itemDetail'>
             <div className="container" >
@@ -89,7 +151,7 @@ function ItemDetail() {
                         <div className="desc">{item.desc}</div>
                         {Array.isArray(item.price) &&
                             <div className="priceList">
-                                {item.price.map((each, i) => <span>{inch += 2} inch : ${each}</span>)}
+                                {item.price.map((each, i) => <span key={i}>{inch += 2} inch : ${each}</span>)}
                             </div>
                         }
                         {item.size &&
@@ -108,7 +170,7 @@ function ItemDetail() {
                             </div>
                         </div>
                         <div className="btnContainer">
-                            <button className='arrowIconBtn'><BsArrowRight />ADD TO CART</button>
+                            <button onClick={handleItemList} className='arrowIconBtn'><BsArrowRight />ADD TO CART</button>
                             <button className='arrowIconBtn fill'><BsArrowRight />BUY NOW</button>
                         </div>
                     </div>
@@ -120,6 +182,7 @@ function ItemDetail() {
                     CLASSIC
                 </div>
             </div>
+            {/* {success ? <SubmitSuccess text={"Item is added to cart"} /> : null} */}
         </div>
     )
 }

@@ -1,0 +1,55 @@
+@import "../../../common.scss";
+.cart{
+    .container{
+        width:100%;
+        max-width: 1400px;
+        padding:100px 30px;
+        margin: auto;
+        min-height: calc(100vh - 202px);
+        .title{
+            display:flex;
+            justify-content: center;
+        }
+        h1{
+            font-size:1.5rem ;
+        }
+        .itemContainer{
+            display:flex;
+            .left{
+                flex:2;
+                table{
+                    width:100%;
+                    border-collapse: collapse;
+                    th{
+                        border-bottom: 1px solid $color1;
+                        padding:10px 0;
+                    }
+                    tr{
+                        border-bottom: 1px solid $gray6;
+                    }
+                    input{
+                        width:100%;
+                        outline: none;
+                        border: 1px solid $gray5;
+                        padding-left: 10px;
+                    }
+                    td{
+                        text-align: center;
+                        padding: 20px 0;
+                    }
+                    img{
+                        width:50px;
+                        object-fit: contain;
+                    }
+                    svg{
+                        color:rgb(189, 15, 15);
+                        cursor: pointer;
+                    }
+                }
+            }
+            .right{
+                flex:1;
+            }
+        }
+    }
+}

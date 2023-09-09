@@ -8,7 +8,7 @@ import Modal from '../../components/modal/Modal'
 import OrderMethod from '../../components/orderMethod/OrderMethod'
 import Order from '../order/Order'
 import { ModalContext, UserContext } from '../../../App'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 
 
@@ -20,6 +20,7 @@ function Home() {
     const [arrangeData, setArrangeData] = useState(false)
     const [saleMenuTarget, setSaleMenuTarget] = useState(0)
     const [allMenu, setAllMenu] = useState(null)
+    const [test, setTest] = useState(null)
     const [openModal, setOpenModal] = useContext(ModalContext)
     const [user,setUser]=useContext(UserContext)
 
@@ -29,13 +30,17 @@ function Home() {
     const textTag = useRef()
     const section = useRef()
     const introSection = useRef()
+    const containerTag = useRef()
+    
+    const location = useLocation()
+
 
     useEffect(() => {
         let texts
         texts = text.split("")
         let entireText = ""
-        texts.forEach(eachText => {
-            entireText += `<span class="eachText">${eachText}</span>`
+        texts.forEach((eachText,i) => {
+            entireText += `<span class="eachText" key=${i}>${eachText}</span>`
             textTag.current.innerHTML = entireText
 
         })
@@ -46,7 +51,7 @@ function Home() {
     const textAnimation = () => {
         const displayTexts = document.querySelectorAll(".eachText")
         let timing = 1
-        displayTexts.forEach((displayText) => {
+        displayTexts.forEach((displayText,i) => {
             displayText.style.transitionDelay = `${timing}s`
             displayText.classList.add("active")
             timing += 0.1
@@ -72,19 +77,23 @@ function Home() {
 
 
     const showSection = (target) => {
-        const elementPosition = target.current.getBoundingClientRect().top
-        const browserHeight = window.innerHeight
-        if (browserHeight - elementPosition > 0) {
-            target.current.classList.add("showSection")
-            setMenuAni(true)
+        if(target.current !==null){
+            const elementPosition = target.current.getBoundingClientRect().top
+            const browserHeight = window.innerHeight
+            if (browserHeight - elementPosition > 0) {
+                target.current.classList.add("showSection")
+                setMenuAni(true)
+            }
+        }else{
+            return null
         }
     }
 
-    
-    window.onscroll = () => {
-        showSection(section)
-        showSection(introSection)
-    }
+    document.onscroll = () =>{
+            showSection(section)
+            showSection(introSection)
+        }
+
     useEffect(() => {
         let timing = 1000
         if (menuAni) {
@@ -95,6 +104,7 @@ function Home() {
                 setTimeout(() => {
                     item.classList.add(`activeAni-${i}`)
                 }, timing)
+                return document.removeEventListener("scroll",showSection)
             })
         }
     }, [menuAni])
@@ -113,7 +123,6 @@ function Home() {
             }
             setAllMenu(array)
             setArrangeData(true)
-            
         }
     }
 
@@ -134,6 +143,7 @@ function Home() {
 
         })
     }
+
 
     return (
         <div className='home'>
@@ -190,7 +200,7 @@ function Home() {
                                                     <span className="originalPrice">${allMenu[saleMenuTarget].price[2] ? allMenu[saleMenuTarget].price[2] : allMenu[saleMenuTarget].price}</span>
                                                 </div>
                                                 {user ?
-                                                    <Link to="/order">
+                                                    <Link to={`/order/${allMenu[saleMenuTarget]._id}`}>
                                                         <button className='arrowIconBtn' disabled={saleMenuTarget == 0 ? false : true}><BsArrowRight />Order</button>
                                                     </Link> :
                                                     <button className='arrowIconBtn' onClick={()=>setOpenModal(true)} disabled={saleMenuTarget == 0 ? false : true}><BsArrowRight />Order</button>

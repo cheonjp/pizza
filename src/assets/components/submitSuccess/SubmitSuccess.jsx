@@ -5,8 +5,8 @@ import { ReactComponent as Check } from '../../svg/check.svg'
 function SubmitSuccess({text}) {
     const box =useRef()
     setTimeout(()=>{
-        box.current.classList.add("active")
-    },1000)
+      box.current.classList.add("active")
+    },10)
   return (
     <div ref={box} className="submitSuccess">
             <Check />
