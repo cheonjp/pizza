@@ -20,9 +20,15 @@
                 table{
                     width:100%;
                     border-collapse: collapse;
+                    .arrowIconBtn{
+                        font-size: 12px;
+                        border:none;
+                        color:rgb(189, 15, 15);
+                    }
                     th{
                         border-bottom: 1px solid $color1;
                         padding:10px 0;
+                        color:$color2;
                     }
                     tr{
                         border-bottom: 1px solid $gray6;
@@ -36,6 +42,16 @@
                     td{
                         text-align: center;
                         padding: 20px 0;
+                        color:$gray4;
+                        &:nth-child(3){
+                            color:$gray3 !important;
+                            font-weight: 500;
+                        }
+                        &:nth-child(6){
+                            font-weight: 500;
+                            color:$gray3;
+                            font-size: 18px;
+                        }
                     }
                     img{
                         width:50px;
@@ -45,10 +61,31 @@
                         color:rgb(189, 15, 15);
                         cursor: pointer;
                     }
+                    .itemLine{
+                        transform:translateX(100px);
+                        opacity: 0;
+                        &.active{
+                            transition: .5s;
+                            transform: translateX(0px) !important;
+                            opacity: 100% !important;
+                        }
+                        &.remove{
+                            transform: translateX(-100px) !important;
+                            opacity: 0% !important;
+                        }
+                    }
+                   
                 }
             }
             .right{
                 flex:1;
+                position:relative;
+                padding-left:30px;
+                .checkoutBox{
+                    position:sticky;
+                    top:20%;
+                    width:100%;
+                }
             }
         }
     }

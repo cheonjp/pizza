@@ -14,8 +14,8 @@ function Header() {
     const [user, setUser] = useContext(UserContext)
     const [openModal, setOpenModal] = useContext(ModalContext)
     const [openUserDropDown, setOpenUserDropDown] = useState(false)
-    
-    const [cartNumber,setCartNumber]=useContext(CartItemContext)
+
+    const [cartNumber, setCartNumber] = useContext(CartItemContext)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -45,27 +45,27 @@ function Header() {
         }
     }, [user])
 
-    useEffect(()=>{
-        const profileDropDownHandler = (e)=>{
-            if(!e.target.closest(".userInfo")){
+    useEffect(() => {
+        const profileDropDownHandler = (e) => {
+            if (!e.target.closest(".userInfo")) {
                 setOpenUserDropDown(false)
                 return document.removeEventListener("mousedown", profileDropDownHandler)
             }
         }
         document.addEventListener("mousedown", profileDropDownHandler)
-    },[openUserDropDown])
+    }, [openUserDropDown])
 
-        
-    const logoutHandler = () =>{
+
+    const logoutHandler = () => {
         sessionStorage.removeItem("user")
         navigate("/")
         window.location.reload()
     }
 
-    const settingNavigation = (e) =>{
-        if(location.pathname === "/"){
+    const settingNavigation = (e) => {
+        if (location.pathname === "/") {
             setOpenModal(true)
-        }else{
+        } else {
             navigate("/order")
         }
     }
@@ -85,7 +85,7 @@ function Header() {
                 </div>
                 <div className="right">
                     {user ?
-                        <div className='userInfo'  onClick={()=>setOpenUserDropDown(!openUserDropDown)}>
+                        <div className='userInfo' onClick={() => setOpenUserDropDown(!openUserDropDown)}>
                             <span>Hi {user.username}</span>
                             <div className="profileImage">
                                 {<img src={!user.img ? instance.defaults.baseURL + "/images/profile/no_profile.png" : instance.defaults.baseURL + "/images/profile/" + user.img} alt="" />}
@@ -102,10 +102,12 @@ function Header() {
                         </Link>
 
                     }
-                    <div className="cart">
-                        {cartNumber > 0 && <div className="itemAlert">{cartNumber <100 ? cartNumber : "99+"}</div>}
-                        <PiShoppingCartLight />
-                    </div>
+                    <Link to ={user ? "/cart/" + user._id : "/cart/customer"}>
+                        <div className="cart">
+                            <PiShoppingCartLight />
+                            {cartNumber > 0 && <div className="itemAlert">{cartNumber < 100 ? cartNumber : "99+"}</div>}
+                        </div>
+                    </Link>
                 </div>
             </div>
         </header>

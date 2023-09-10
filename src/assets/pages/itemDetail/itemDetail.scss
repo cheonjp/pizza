@@ -98,10 +98,11 @@
                             font-family: $secfont;
                             color:$color2;
                         }
-                        // .totalPrice{
-                        //     display:flex;
-                        //     gap:20px;
-                        // }
+                        .originalPrice{
+                            text-decoration: line-through;
+                            color:$gray5;
+                            margin-right:10px;
+                        }
                     }
                 }
                 .priceList{

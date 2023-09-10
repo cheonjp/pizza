@@ -20,8 +20,7 @@ function ItemDetail() {
     const [cartNumber, setCartNumber] = useContext(CartItemContext)
 
     const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    const today = day[new Date().getDay()]
-    console.log(item)
+    let today = day[new Date().getDay()]
 
     const totalPriceTag = useRef()
     const location = useLocation()
@@ -40,26 +39,39 @@ function ItemDetail() {
         } else if (event.target.value === 14) {
             setTotalPrice(Number(item.price[1]) * quantity)
         } else {
-            setTotalPrice(Number(item.price[2]) * quantity)
+            setTotalPrice(item.day === today ? Number(item.salePrice) * quantity : Number(item.price[2]) * quantity)
         }
     }
 
     useEffect(() => {
         quantity <= 1 && setQuantity(1)
-        if(item.day !==today){
-            
-        }
-        if (item.price) {
-            if (Array.isArray(item.price)) {
-                if (sizeValue === 12) {
-                    setTotalPrice(Number(item.price[0]) * quantity)
-                } else if (sizeValue === 14) {
-                    setTotalPrice(Number(item.price[1]) * quantity)
-                } else if (sizeValue === 16) {
-                    setTotalPrice(Number(item.price[2]) * quantity)
+        if(item.day ===today){
+            if (item.price) {
+                if (Array.isArray(item.price)) {
+                    if (sizeValue === 12) {
+                        setTotalPrice(Number(item.price[0]) * quantity)
+                    } else if (sizeValue === 14) {
+                        setTotalPrice(Number(item.price[1]) * quantity)
+                    } else if (sizeValue === 16) {
+                        setTotalPrice(Number(item.salePrice) * quantity)
+                    }
+                } else {
+                    setTotalPrice(quantity * item.salePrice)
                 }
-            } else {
-                setTotalPrice(quantity * item.price)
+            }
+        }else{
+            if (item.price) {
+                if (Array.isArray(item.price)) {
+                    if (sizeValue === 12) {
+                        setTotalPrice(Number(item.price[0]) * quantity)
+                    } else if (sizeValue === 14) {
+                        setTotalPrice(Number(item.price[1]) * quantity)
+                    } else if (sizeValue === 16) {
+                        setTotalPrice(Number(item.price[2]) * quantity)
+                    }
+                } else {
+                    setTotalPrice(quantity * item.price)
+                }
             }
         }
 
@@ -79,9 +91,10 @@ function ItemDetail() {
     }, [])
 
     useEffect(() => {
-        // Array.isArray(item.price) ? setTotalPrice(Number(item.price[0])) : setTotalPrice(Number(item.price))
         if(item.day === today){
-            setTotalPrice(item.salePrice)
+            Array.isArray(item.price) ? setTotalPrice(Number(item.price[0])) : setTotalPrice(Number(item.salePrice))
+        }else{
+            Array.isArray(item.price) ? setTotalPrice(Number(item.price[0])) : setTotalPrice(Number(item.price))
         }
     }, [item])
 
@@ -166,6 +179,8 @@ function ItemDetail() {
                             </div>
                             <div className="totalPrice">
                                 <span className='priceText'>Total Price</span>
+                                {item.day === today && !Array.isArray(item.price) && <span className='originalPrice'>$ {item.price}</span>}
+                                {item.day === today && Array.isArray(item.price) && sizeValue===16 &&<span className='originalPrice'>$ {item.price[2]}</span>}
                                 <span ref={totalPriceTag} className='price'>${totalPrice}</span>
                             </div>
                         </div>
