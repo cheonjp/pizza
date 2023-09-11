@@ -11,6 +11,7 @@ import ProfileDetail from './assets/pages/profileDetail/ProfileDetail'
 import ItemDetail from './assets/pages/itemDetail/ItemDetail'
 import Cart from './assets/pages/cart/Cart'
 import instance from './axios'
+import Checkout from './assets/pages/checkout/Checkout'
 
 export const UserContext = createContext()
 export const ModalContext = createContext()
@@ -47,9 +48,7 @@ function App() {
     getUserCartItems()
   }, [user,cartNumber])
 
-  // window.onscroll = () =>{
-  //   console.log(cartNumber)
-  // }
+
 
   const Layout = () => {
     return (
@@ -84,6 +83,10 @@ function App() {
         {
           path: "/cart/:id",
           element: <Cart />
+        },
+        {
+          path: "/checkout",
+          element: <Checkout />
         },
       ]
     },

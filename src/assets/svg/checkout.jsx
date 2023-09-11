@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function Checkout({totalPrice,classname,refer}) {
+function Checkout({ totalPrice, classname, refer,link }) {
   return (
     <>
       <svg className={classname} xmlns="http://www.w3.org/2000/svg" width="522.5" height="437.64" viewBox="0 0 522.5 437.64">
@@ -42,12 +43,14 @@ function Checkout({totalPrice,classname,refer}) {
           <circle id="Ellipse_67" data-name="Ellipse 67" cx="2.184" cy="2.184" r="2.184" transform="translate(391.89 35.114)" fill="#eca86d" />
           <path id="Path_265" data-name="Path 265" d="M241.165,746.151a.864.864,0,0,0,.866.866H762.8a.866.866,0,1,0,0-1.733H242.031a.864.864,0,0,0-.866.866Z" transform="translate(-241.165 -313.588)" fill="#ccc" />
           <path id="Path_266" data-name="Path 266" d="M471.569,692.622a2.044,2.044,0,0,1-1.481-3.543l.14-.557-.056-.134a5.489,5.489,0,0,0-10.125.038c-1.656,3.988-3.764,7.983-4.283,12.2a16.236,16.236,0,0,0,.285,5.585,65.1,65.1,0,0,1-5.922-27.039,62.818,62.818,0,0,1,.39-7.01q.323-2.862.9-5.684a65.856,65.856,0,0,1,13.06-27.911,17.526,17.526,0,0,0,7.289-7.562,13.371,13.371,0,0,0,1.216-3.653c-.355.047-1.338-5.358-1.07-5.69-.495-.75-1.38-1.123-1.92-1.856-2.686-3.642-6.387-3.006-8.319,1.943-4.127,2.083-4.167,5.537-1.635,8.86,1.611,2.114,1.833,4.974,3.246,7.237-.145.186-.3.367-.442.553a66.276,66.276,0,0,0-6.918,10.96,27.553,27.553,0,0,0-1.645-12.8c-1.574-3.8-4.526-7-7.125-10.281a5.656,5.656,0,0,0-10.073,2.777c-.005.048-.01.1-.015.145q.579.326,1.134.693a2.772,2.772,0,0,1-1.118,5.045l-.056.009a27.56,27.56,0,0,0,.727,4.125c-3.334,12.894,3.864,17.59,14.142,17.8.227.116.448.232.675.343a67.648,67.648,0,0,0-3.642,17.138,64.156,64.156,0,0,0,.047,10.361l-.018-.122a16.956,16.956,0,0,0-5.788-9.791c-4.454-3.659-10.747-5.006-15.553-7.948a3.182,3.182,0,0,0-4.874,3.1l.02.128a18.616,18.616,0,0,1,2.088,1.006q.579.327,1.134.693a2.773,2.773,0,0,1-1.118,5.046l-.057.008-.116.018a27.609,27.609,0,0,0,5.078,7.952c2.085,11.256,11.039,12.324,20.617,9.046h.006a67.639,67.639,0,0,0,4.543,13.263h16.23c.058-.18.11-.367.163-.547a18.442,18.442,0,0,1-4.491-.268c1.2-1.478,2.408-2.967,3.613-4.444a1.087,1.087,0,0,0,.076-.087c.611-.756,1.227-1.507,1.838-2.263h0a27.006,27.006,0,0,0-.791-6.881Z" transform="translate(-290.536 -278.833)" fill="#f2f2f2" />
-          <text id="Monster_Pizza" data-name="Monster Pizza" transform="translate(153.918 123.17)" fill="#eca86d" font-size="23" font-family="GothicA1-Medium, Gothic A1" font-weight="500"><tspan x="0" y="0">Monster Pizza</tspan></text>
-          <text id="Total" transform="translate(156.5 173.93)" fill="#eca86d" font-size="18" font-family="GothicA1-Regular, Gothic A1"><tspan x="0" y="0">Total</tspan></text>
-          <text id="_70" data-name="$ 70" transform="translate(156.5 210.93)" fill="#656565" font-size="18" font-family="GothicA1-Medium, Gothic A1" font-weight="500"><tspan x="0" y="0" font-weight="bold" ref={refer}>$ {totalPrice}</tspan></text>
+          <text id="Monster_Pizza" data-name="Monster Pizza" transform="translate(153.918 123.17)" fill="#eca86d" fontSize="23" fontFamily="GothicA1-Medium, Gothic A1" fontWeight="500"><tspan x="0" y="0">Monster Pizza</tspan></text>
+          <text id="Total" transform="translate(156.5 173.93)" fill="#eca86d" fontSize="18" fontFamily="GothicA1-Regular, Gothic A1"><tspan x="0" y="0">Total</tspan></text>
+          <text id="_70" data-name="$ 70" transform="translate(156.5 210.93)" fill="#656565" fontSize="18" fontFamily="GothicA1-Medium, Gothic A1" fontWeight="500"><tspan x="0" y="0" fontWeight="bold" ref={refer}>$ {totalPrice}</tspan></text>
           <g id="Group_59" data-name="Group 59" transform="translate(-8)">
             <rect id="Rectangle_77" data-name="Rectangle 77" width="182" height="38" transform="translate(149.5 290.93)" fill="#234b6d" />
-            <text id="Proceed_to_checkout" data-name="Proceed to checkout" transform="translate(166.5 314.93)" fill="#fff" font-size="16" font-family="GothicA1-Regular, Gothic A1"><tspan x="0" y="0">Proceed to checkout</tspan></text>
+            <Link to ={link}>
+              <text id="Proceed_to_checkout" data-name="Proceed to checkout" transform="translate(166.5 314.93)" fill="#fff" fontSize="16" fontFamily="GothicA1-Regular, Gothic A1"><tspan x="0" y="0">Proceed to checkout</tspan></text>
+            </Link>
           </g>
         </g>
       </svg>

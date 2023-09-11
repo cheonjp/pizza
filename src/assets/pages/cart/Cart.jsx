@@ -48,21 +48,49 @@ function Cart() {
 
 
     let array = []
-    const deleteItem = (e) => {
-        items.forEach((item, i) => {
-            if (Number(e.target.id) !== i) {
-                array.push(item)
+    const deleteItem = async (e) => {
+        if (sessionStorage.getItem("cartItems")) {
+            items.forEach((item, i) => {
+                if (Number(e.target.id) !== i) {
+                    array.push(item)
+                }
+            })
+            sessionStorage.removeItem("cartItems")
+            sessionStorage.setItem("cartItems", JSON.stringify(array))
+            const resetItems = JSON.parse(sessionStorage.getItem("cartItems"))
+            setItems(resetItems)
+        } else if (user) {
+            try {
+                const itemId = e.target.id
+                await instance.delete("/api/checkout/cart/delete", {
+                    data: {
+                        id: itemId
+                    }
+                })
+                setCartNumber(items.length - 1)
+            } catch (error) {
+                console.log(error.response)
             }
-        })
-        sessionStorage.removeItem("cartItems")
-        sessionStorage.setItem("cartItems", JSON.stringify(array))
-        const resetItems = JSON.parse(sessionStorage.getItem("cartItems"))
-        setItems(resetItems)
+        }
     }
-    const deleteAllItems = () => {
-        sessionStorage.removeItem("cartItems")
-        setItems(null)
-        setCartNumber(0)
+    const deleteAllItems = async() => {
+        if (sessionStorage.getItem("cartItems")) {
+            sessionStorage.removeItem("cartItems")
+            setItems(null)
+            setCartNumber(0)
+
+        }else if(user){
+            try {
+                await instance.delete("api/checkout/cart/delete/all-items",{
+                    data:{
+                        userId:user._id
+                    }
+                })
+                setCartNumber(0)
+            } catch (error) {
+                console.log(error.response)
+            }
+        }
     }
     return (
         <div className='cart'>
@@ -102,7 +130,7 @@ function Cart() {
                         </table>
                     </div>
                     <div className="right">
-                        <Checkout refer={totalPriceTag} classname={"checkoutBox"} totalPrice={totalPrice} />
+                        <Checkout refer={totalPriceTag} classname={"checkoutBox"} totalPrice={totalPrice} link={"/checkout"} />
                     </div>
                 </div>
             </div>

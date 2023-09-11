@@ -1,0 +1,121 @@
+@import "../../../common.scss";
+
+.checkout {
+    display: flex;
+
+    .container {
+        width: 100%;
+        max-width: 1400px;
+        padding: 100px 30px;
+        margin: auto;
+        min-height: calc(100vh - 202px);
+        display: flex;
+        gap: 30px;
+
+        .title {
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        .left {
+            flex: 2;
+
+            .customerInfoBox {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                .inputBox {
+                    width: 48%;
+                }
+            }
+
+            .paymentInfoBox {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                .inputBox {
+                    width: 48%;
+                }
+            }
+
+            // .smallSize{
+            //     width:22% !important;
+            // }
+            .expCVVBox {
+                width: 48%;
+                display: flex;
+                gap: 10px;
+                justify-content: space-between;
+            }
+            p{
+                color:red;
+            }
+        }
+
+        .right {
+            flex: 1;
+            height:100%;
+            .paymentContainer {
+                height: 100%;
+                background-color: rgb(245, 245, 245);
+                padding: 20px;
+                .itemList{
+                    max-height: 50vh;
+                    overflow-y: auto;
+                }
+            }
+
+            .item {
+                img {
+                    height:40px;
+                    object-fit: contain;
+                    object-position: left;
+                }
+                td{
+                    text-align: center;
+                    &:last-child{
+                        font-weight: 500;
+                    }
+                    &:nth-child(2){
+                        color:$gray3;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow:hidden;
+
+                    }
+                    &:nth-child(3){
+                        color:$gray3;
+                    }
+                }
+            }
+            .totalPriceBox{
+                border-top: 1px solid $gray5;
+                padding-top:20px;
+                margin-top: 20px;
+                display:flex;
+                justify-content: space-between;
+            }
+            .totalPrice{
+                font-size: 22px;
+                color:$color2;
+                font-weight: 500;
+            }
+            .totalPriceText{
+                color:$gray3;
+            }
+        }
+
+        h4 {
+            border-bottom: 1px solid $color1;
+            padding-bottom: 10px;
+            margin-bottom: 40px;
+        }
+    }
+}
