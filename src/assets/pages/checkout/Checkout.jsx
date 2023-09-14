@@ -265,7 +265,7 @@ function Checkout() {
                                     {items && items.map((item, i) => {
                                         return (
                                             <tr>
-                                                <td><img src="/img/baconPizza.png" alt="" /></td>
+                                                <td><img src={item.img} alt="" /></td>
                                                 <td>{item.name}</td>
                                                 <td>{item.quantity}</td>
                                                 <td>${item.totalPrice}</td>

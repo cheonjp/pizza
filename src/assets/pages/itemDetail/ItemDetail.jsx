@@ -3,7 +3,7 @@ import "./ItemDetail.scss"
 import Select from '../../components/select/Select'
 import { BsArrowRight } from "react-icons/bs"
 import instance from '../../../axios'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { CartItemContext } from '../../../App'
 import SubmitSuccess from '../../components/submitSuccess/SubmitSuccess'
 
@@ -24,6 +24,7 @@ function ItemDetail() {
 
     const totalPriceTag = useRef()
     const location = useLocation()
+    const navigate = useNavigate()
 
     const { id } = useParams()
     let inch = 10
@@ -186,7 +187,7 @@ function ItemDetail() {
                         </div>
                         <div className="btnContainer">
                             <button onClick={handleItemList} className='arrowIconBtn'><BsArrowRight />ADD TO CART</button>
-                            <button className='arrowIconBtn fill'><BsArrowRight />BUY NOW</button>
+                            <button className='arrowIconBtn fill' onClick={()=> navigate("/checkout")}><BsArrowRight />BUY NOW</button>
                         </div>
                     </div>
                 </div>
