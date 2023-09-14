@@ -16,6 +16,7 @@ function ItemDetail() {
         JSON.parse(sessionStorage.getItem("cartItems")) : [])
     const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")))
     const [render, setRender] = useState(false)
+    const [page, setPage] = useState(false)
 
     const [cartNumber, setCartNumber] = useContext(CartItemContext)
 
@@ -157,6 +158,11 @@ function ItemDetail() {
         }
     }, [render])
 
+    const handleCheckout = () =>{
+        savedItem()
+        navigate("/checkout")
+    }
+
     return (
         <div className='itemDetail'>
             <div className="container" >
@@ -193,7 +199,7 @@ function ItemDetail() {
                         </div>
                         <div className="btnContainer">
                             <button onClick={handleItemList} className='arrowIconBtn'><BsArrowRight />ADD TO CART</button>
-                            <button className='arrowIconBtn fill' onClick={handleItemList}><BsArrowRight />BUY NOW</button>
+                            <button className='arrowIconBtn fill' onClick={handleCheckout}><BsArrowRight />BUY NOW</button>
                         </div>
                     </div>
                 </div>
