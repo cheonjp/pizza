@@ -171,7 +171,7 @@ function Register() {
                 {succeed && <SubmitSuccess text={"Welcome to Monster Pizza."}/>}
             </div>
             <div className="right">
-                <img src="/public/img/register.jpg" alt="" />
+                <img src="/img/register.jpg" alt="" />
             </div>
         </div>
     )
