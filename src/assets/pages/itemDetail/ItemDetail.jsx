@@ -103,7 +103,7 @@ function ItemDetail() {
         setQuantity(e.target.value)
     }
     let singleItem
-    const handleItemList = () => {
+    const handleItemList = (e) => {
         if (user) {
             singleItem = {
                 img: item.img,
@@ -116,6 +116,9 @@ function ItemDetail() {
             }
             setCartItems(singleItem)
             setRender(true)
+            if(e.target.className === "fill"){
+                navigate("/checkout")
+            }
         } else {
             singleItem = {
                 img: item.img,
@@ -127,6 +130,9 @@ function ItemDetail() {
             }
             setCartItems([...cartItems, singleItem])
             setRender(true)
+            if(e.target.className === "fill"){
+                navigate("/checkout")
+            }
         }
     }
 
@@ -187,7 +193,7 @@ function ItemDetail() {
                         </div>
                         <div className="btnContainer">
                             <button onClick={handleItemList} className='arrowIconBtn'><BsArrowRight />ADD TO CART</button>
-                            <button className='arrowIconBtn fill' onClick={()=> navigate("/checkout")}><BsArrowRight />BUY NOW</button>
+                            <button className='arrowIconBtn fill' onClick={handleItemList}><BsArrowRight />BUY NOW</button>
                         </div>
                     </div>
                 </div>
