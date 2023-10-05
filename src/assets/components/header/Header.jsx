@@ -77,6 +77,7 @@ function Header() {
             setOpenModal(true)
             setModalChild(<OrderMethod />)
         } else {
+            setOpenModal(false)
             navigate("/order")
         }
     }
@@ -89,10 +90,11 @@ function Header() {
     const phoneMenu = () => {
         return (
             <header className="phoneMenuContainer">
-                <Link to="/" onClick={()=>setOpenModal(false)}>HOME</Link>
-                {user ? <Link to="/order">ORDER</Link> : <div className='orderLink' onClick={settingNavigation}>ORDER</div>}
-                <Link to="/" onClick={()=>setOpenModal(false)}>CONTACT</Link>
-                <Link to="/" onClick={()=>setOpenModal(false)}>LOCATION</Link>
+                <Link to="/" onClick={()=>setOpenModal(false)} className='notAllowed'>HOME</Link>
+                {/* {user ? <Link to="/order" onClick={()=>setOpenModal(false)}>ORDER</Link> : <div className='orderLink' onClick={settingNavigation}>ORDER</div>} */}
+                <Link to="/order" onClick={()=>setOpenModal(false)}>ORDER</Link>
+                <Link to="/" onClick={()=>setOpenModal(false)} className='notAllowed'>CONTACT</Link>
+                <Link to="/" onClick={()=>setOpenModal(false)} className='notAllowed'>LOCATION</Link>
             </header>
         )
     }
@@ -106,10 +108,10 @@ function Header() {
                         <IconLogo className="logo" />
                     </Link>
                     <div className="center">
-                        <Link to="/">HOME</Link>
+                        <Link to="/" className='notAllowed'>HOME</Link>
                         {user ? <Link to="/order">ORDER</Link> : <div className='orderLink' onClick={settingNavigation}>ORDER</div>}
-                        <Link to="/">CONTACT</Link>
-                        <Link to="/">LOCATION</Link>
+                        <Link to="/" className='notAllowed'>CONTACT</Link>
+                        <Link to="/" className='notAllowed'>LOCATION</Link>
                     </div>
                     <div className="right">
                         {user ?

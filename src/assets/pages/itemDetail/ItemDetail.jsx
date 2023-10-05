@@ -17,6 +17,7 @@ function ItemDetail() {
     const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")))
     const [render, setRender] = useState(false)
     const [page, setPage] = useState(false)
+    const [checkout,setCheckout]=useState(false)
 
     const [cartNumber, setCartNumber] = useContext(CartItemContext)
 
@@ -117,8 +118,8 @@ function ItemDetail() {
             }
             setCartItems(singleItem)
             setRender(true)
-            if(e.target.className === "fill"){
-                navigate("/checkout")
+            if(e.target.className === "arrowIconBtn fill"){
+                setCheckout(true)
             }
         } else {
             singleItem = {
@@ -131,9 +132,9 @@ function ItemDetail() {
             }
             setCartItems([...cartItems, singleItem])
             setRender(true)
-            if(e.target.className === "fill"){
-                navigate("/checkout")
-            }
+                if(e.target.className === "arrowIconBtn fill"){
+                        setCheckout(true)
+                }
         }
     }
 
@@ -155,11 +156,15 @@ function ItemDetail() {
     useEffect(() => {
         if (render) {
             savedItem()
+            if(checkout){
+                navigate("/checkout")
+            }
         }
     }, [render])
 
     const handleCheckout = () =>{
-        savedItem()
+        // savedItem()
+        // sessionStorage.setItem("singleItem", JSON.stringify())
         navigate("/checkout")
     }
 
@@ -199,7 +204,8 @@ function ItemDetail() {
                         </div>
                         <div className="btnContainer">
                             <button onClick={handleItemList} className='arrowIconBtn'><BsArrowRight />ADD TO CART</button>
-                            <button className='arrowIconBtn fill' onClick={handleCheckout}><BsArrowRight />BUY NOW</button>
+                            {/* <button className='arrowIconBtn fill' onClick={handleCheckout}><BsArrowRight />BUY NOW</button> */}
+                            <button className='arrowIconBtn fill' onClick={handleItemList}><BsArrowRight />BUY NOW</button>
                         </div>
                     </div>
                 </div>

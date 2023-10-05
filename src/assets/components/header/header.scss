@@ -156,6 +156,10 @@
     a{
         text-decoration: none;
     }
+    .notAllowed {
+        opacity: 0.1;
+        cursor:not-allowed !important;
+    }
 }
 .phoneMenuContainer{
     height:100vh;
@@ -174,6 +178,10 @@
         margin-bottom: 20px;
         font-size: 18px;
         cursor: pointer;
+    }
+    .notAllowed {
+        opacity: 0.1;
+        cursor:not-allowed !important;
     }
 }
 @keyframes showPhoneMenu {
