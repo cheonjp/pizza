@@ -148,3 +148,25 @@
             }
         }
 }
+
+@media(max-width:800px){
+    .itemDetail > .container{
+        padding:30px;
+        flex-direction: column;
+    }
+    .decoTextBox1,.decoTextBox2{
+        display:none;
+    }
+    .itemDetail > .container{
+        height:auto !important;
+        max-height: fit-content !important;
+    }
+    .arrowIconBtn{
+        padding:7px 14px !important;
+    }
+    .right{
+        .container{
+            padding:20px 0 !important;
+        }
+    }
+}

@@ -74,3 +74,9 @@ h1{
         cursor:not-allowed;
     }
 }
+
+@media (max-width:1000px){
+    html{
+        font-size: 14px;
+    }
+}

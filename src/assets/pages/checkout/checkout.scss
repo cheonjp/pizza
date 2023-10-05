@@ -119,3 +119,12 @@
         }
     }
 }
+
+@media (max-width:900px){
+    .inputBox{
+        width:100% !important;
+    }
+    .checkout .container{
+        flex-direction: column-reverse;
+    }
+}

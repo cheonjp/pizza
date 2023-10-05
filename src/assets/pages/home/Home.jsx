@@ -7,7 +7,7 @@ import instance from '../../../axios'
 import Modal from '../../components/modal/Modal'
 import OrderMethod from '../../components/orderMethod/OrderMethod'
 import Order from '../order/Order'
-import { ModalContext, UserContext } from '../../../App'
+import { ModalContext, ModalElementContext, UserContext } from '../../../App'
 import { Link, useLocation } from 'react-router-dom'
 
 
@@ -23,6 +23,7 @@ function Home() {
     const [test, setTest] = useState(null)
     const [openModal, setOpenModal] = useContext(ModalContext)
     const [user,setUser]=useContext(UserContext)
+    const [modalChild,setModalChild]=useContext(ModalElementContext)
 
 
     setTimeout(() => setSlideClassName("iconLogo showActive"), 1000)
@@ -144,7 +145,11 @@ function Home() {
         })
     }
 
-
+    const openMethod = () => {
+        setOpenModal(true)
+        setModalChild(<OrderMethod/>)
+        console.log(modalChild)
+    }
     return (
         <div className='home'>
             <div className="container">
@@ -203,7 +208,7 @@ function Home() {
                                                     <Link to={`/order/${allMenu[saleMenuTarget]._id}`}>
                                                         <button className='arrowIconBtn' disabled={saleMenuTarget == 0 ? false : true}><BsArrowRight />Order</button>
                                                     </Link> :
-                                                    <button className='arrowIconBtn' onClick={()=>setOpenModal(true)} disabled={saleMenuTarget == 0 ? false : true}><BsArrowRight />Order</button>
+                                                    <button className='arrowIconBtn' onClick={openMethod} disabled={saleMenuTarget == 0 ? false : true}><BsArrowRight />Order</button>
 
                                                 }
                                             </div>
@@ -223,12 +228,6 @@ function Home() {
                     </div>
                 </section>
             </div>
-            {openModal === true ?
-                <Modal>
-                    <OrderMethod />
-                </Modal> :
-                null
-            }
         </div>
     )
 }

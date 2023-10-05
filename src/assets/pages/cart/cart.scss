@@ -89,4 +89,23 @@
             }
         }
     }
+    .phoneBtn{
+        display:none;
+        margin:10px 0;
+    }
+}
+
+@media (max-width:800px) {
+    .itemContainer{
+        flex-direction: column !important;
+        .checkoutBox{
+            display:none;
+        }
+        .right{
+            padding-left: 0 !important;
+        }
+    }
+    .phoneBtn{
+        display:block !important;
+    }
 }

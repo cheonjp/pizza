@@ -16,12 +16,14 @@ import Checkout from './assets/pages/checkout/Checkout'
 export const UserContext = createContext()
 export const ModalContext = createContext()
 export const CartItemContext = createContext()
+export const ModalElementContext = createContext()
 
 function App() {
   const [user, setUser] = useState(null)
   const [openModal, setOpenModal] = useState(false)
   const sessionItems = sessionStorage.getItem("cartItems") ? JSON.parse(sessionStorage.getItem("cartItems")) : null
   const [cartNumber, setCartNumber] = useState(sessionItems ? sessionItems.length : null)
+  const [modalChild, setModalChild] = useState(null)
 
   useEffect(() => {
     const getUserCartItems = async () => {
@@ -46,7 +48,7 @@ function App() {
       }
     }
     getUserCartItems()
-  }, [user,cartNumber])
+  }, [user, cartNumber])
 
 
 
@@ -102,13 +104,15 @@ function App() {
 
   return (
     <div className='app'>
-      <UserContext.Provider value={[user, setUser]}>
-        <ModalContext.Provider value={[openModal, setOpenModal]}>
-          <CartItemContext.Provider value={[cartNumber, setCartNumber]}>
-            <RouterProvider router={router} />
-          </CartItemContext.Provider>
-        </ModalContext.Provider>
-      </UserContext.Provider>
+      <ModalElementContext.Provider value={[modalChild,setModalChild]}>
+        <UserContext.Provider value={[user, setUser]}>
+          <ModalContext.Provider value={[openModal, setOpenModal]}>
+            <CartItemContext.Provider value={[cartNumber, setCartNumber]}>
+              <RouterProvider router={router} />
+            </CartItemContext.Provider>
+          </ModalContext.Provider>
+        </UserContext.Provider>
+      </ModalElementContext.Provider>
     </div>
   )
 }

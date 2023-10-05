@@ -5,7 +5,8 @@ import { AiOutlineDelete } from "react-icons/ai"
 import { CartItemContext, UserContext } from '../../../App'
 import instance from '../../../axios'
 import Checkout from '../../svg/checkout'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import SubmitBtn from '../../components/submitBtn/SubmitBtn'
 
 function Cart() {
     const [user, setUser] = useContext(UserContext)
@@ -73,17 +74,17 @@ function Cart() {
             }
         }
     }
-    const deleteAllItems = async() => {
+    const deleteAllItems = async () => {
         if (sessionStorage.getItem("cartItems")) {
             sessionStorage.removeItem("cartItems")
             setItems(null)
             setCartNumber(0)
 
-        }else if(user){
+        } else if (user) {
             try {
-                await instance.delete("api/checkout/cart/delete/all-items",{
-                    data:{
-                        userId:user._id
+                await instance.delete("api/checkout/cart/delete/all-items", {
+                    data: {
+                        userId: user._id
                     }
                 })
                 setCartNumber(0)
@@ -131,6 +132,10 @@ function Cart() {
                     </div>
                     <div className="right">
                         <Checkout refer={totalPriceTag} classname={"checkoutBox"} totalPrice={totalPrice} link={"/checkout"} />
+                        <Link to="/checkout" className='phoneBtn'>
+                            <SubmitBtn text={`Proceed to check out...... Total Price : $ ${totalPrice}`} />
+                        </Link>
+
                     </div>
                 </div>
             </div>
