@@ -1,8 +1,10 @@
-# React + Vite
+. 프로젝트명: 피자 레스토랑 웹사이트
+. 프로젝트 목표: 리액트 스킬 향상
+. 프로젝트 진행 기간: 약 50일
+  - 프로젝트 진행 전 마인드맵을 통해 프로젝트 진행에 사용할 디펜던시, 사진들을 오픈소스를 통해 계획 및 다운로드
+  - 어도비 XD를 통해 폰트, 폰트 크기, 색상, 프로토타입 구상
+. Node.js, MongoDB를 구현하고 API에 맞게 화면 구현.
+. 리액트 Hook(useState, useEffect, useNavigate, useContext, useLocation을 사용하여 라우팅 실행 구현
+. 음식주문을 API와 연동해서 화면 이동, 카트에 음식 저장, 마지막 결제는 보안 위험상 데이터베이스에 저장 없이 화면만 구현.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+리액트 연습 후 처음 리액트로 프로젝트를 제작하였으며 최대한 리액트외 라이브러리 사용을 자제하고 직접 모든걸 구현해 봤습니다. (사용한 디펜던시 : SASS, MeterialUI)
